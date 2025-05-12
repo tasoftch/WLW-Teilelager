@@ -1,0 +1,24 @@
+{
+  "name": "skyline/router",
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "Thomas Abplanalp",
+      "email": "info@tasoft.ch"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Skyline\\Router\\" : "src"
+    }
+  },
+  "require" : {
+    "php": ">=7.2",
+    "tasoft/event-manager": "^1",
+    "symfony/http-foundation": "^6"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9",
+    "skyline/compiler": "^8"
+  }
+}

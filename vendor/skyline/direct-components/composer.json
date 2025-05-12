@@ -1,0 +1,28 @@
+{
+  "name": "skyline/direct-components",
+  "description": "Direct component access plugin for Skyline CMS Applications",
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "Thomas Abplanalp",
+      "email": "info@tasoft.ch"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Skyline\\Component\\" : "src"
+    },
+    "files": [
+      "src/Constants.php"
+    ]
+  },
+  "require" : {
+    "php": "^8",
+    "skyline/html-render": "^8",
+    "skyline/kernel": "^8",
+    "tasoft/mime": "^1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9"
+  }
+}

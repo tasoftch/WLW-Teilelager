@@ -1,0 +1,29 @@
+{
+  "name": "skyline/component-bootstrap",
+  "description": "Describes a Skyline Application compatible component package to include the Bootstrap CSS framework",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Thomas Abplanalp",
+      "email": "info@tasoft.ch"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Skyline\\HTML\\Bootstrap\\": "src"
+    }
+  },
+  "require" : {
+    "php": "^8",
+    "skyline/direct-components": "^8",
+    "skyline/html-form": "^8"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6",
+    "skyline/component-jquery": "^3"
+  },
+  "suggest": {
+    "skyline/component-jquery": "^3",
+    "skyline/component-jquery-local": "^3"
+  }
+}

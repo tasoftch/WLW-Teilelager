@@ -1,0 +1,5 @@
+# Skyline CMS HTAccess Compiler
+RewriteEngine on
+
+RewriteCond %{REQUEST_URI} !skyline\.php [NC]
+RewriteRule ^.*$ /skyline.php [L,QSA]

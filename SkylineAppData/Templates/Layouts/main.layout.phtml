@@ -1,0 +1,43 @@
+<?php
+/**
+ * @title WLW Projekt
+ * @description WLW Projekt :: Kleinteilelager
+ * @require jQuery
+ * @require Application
+ */
+
+use Skyline\Navigation\NavigationService;
+use Skyline\Render\Context\DefaultRenderContext;
+
+/**
+ * @var DefaultRenderContext $this
+ */
+
+?><div class="container-fluid main-container p-0">
+	<header class="m-0 sticky-fixed">
+		<?php
+		/** @var NavigationService $nv */
+		$nv = $this->mainNavigation;
+
+		$topNav = $nv->getNavigationBar("top-navigation");
+		$nv->renderNavigation($topNav);
+		?>
+	</header>
+
+	<div class="container p-0 p-sm-1">
+		<main class="p-3 sticky-flexible">
+			<?php
+			$this->renderSubTemplate("Content");
+			?>
+		</main>
+	</div>
+
+	<footer class="sticky-bottom m-0 mx-sm-3 mb-sm-3">
+		<div class="container py-1">
+			© 2020 Your Company
+			<p class="text-muted font-italic" style="font-size: 80%">
+				Powered by <a href="https://www.skyline-cms.ch" target="_blank">Skyline CMS</a>. All rights reserved.
+			</p>
+		</div>
+	</footer>
+</div>

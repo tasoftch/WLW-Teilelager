@@ -1,0 +1,21 @@
+{
+  "name": "tasoft/mime",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Thomas Abplanalp",
+      "email": "info@tasoft.ch"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "TASoft\\Util\\" : "src"
+    }
+  },
+  "require" : {
+    "php": "^7|^8"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6|^9"
+  }
+}

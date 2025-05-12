@@ -1,0 +1,27 @@
+
+<div class="alert alert-danger">
+    <h2 class="alert-heading">403 Forbidden</h2>
+    <p class="alert-body">
+		<?php
+		/** @var Exception $PROBLEM */
+
+		use Skyline\Kernel\Exception\SkylineKernelDetailedException;
+
+		if(isset($PROBLEM)) {
+			if($PROBLEM instanceof SkylineKernelDetailedException) {
+				echo "<strong>",  htmlspecialchars( $PROBLEM->getMessage() ), "</strong><br>";
+				echo htmlspecialchars( $PROBLEM->getDetails() );
+			} else {
+				echo htmlspecialchars( $PROBLEM->getMessage() );
+			}
+		}
+		?>
+    </p>
+</div>
+
+<dl class="row">
+    <dt class="col-sm-2">IP:</dt>
+    <dd class="col-sm-10"><?=htmlspecialchars($_SERVER["REMOTE_ADDR"])?></dd>
+    <dt class="col-sm-2">Agent:</dt>
+    <dd class="col-sm-10"><?=htmlspecialchars($_SERVER["HTTP_USER_AGENT"])?></dd>
+</dl>

@@ -39,7 +39,6 @@ use Skyline\Kernel\Service\CORSService as CORS;
 define("SKY_DEBUG", false);
 define("SKY_TEST", false);
 
-
 chdir( dirname(__FILE__) . DIRECTORY_SEPARATOR . '../');
 require 'vendor/autoload.php';
 

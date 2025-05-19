@@ -58,7 +58,7 @@ class BasicCompilersFactory extends AbstractExtendedCompilerFactory
                     ]
                 ]
             ],
-            'create-public-directory' => CreatePublicDirectoryCompiler::class,
+            #'create-public-directory' => CreatePublicDirectoryCompiler::class,
             'composer-packages-order' => [
                 self::COMPILER_CLASS_KEY => ComposerPackagesOrderCompiler::class,
                 self::COMPILER_ARGUMENTS_KEY => [

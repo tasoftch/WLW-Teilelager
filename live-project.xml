@@ -5,7 +5,7 @@ This project file will be loaded by the compiler to preprocess the application
 <project class="\Skyline\Compiler\Project\Project">
     <attributes>
         <!-- The Application's title (if nothing else specified) -->
-        <attr name="title">My Website</attr>
+        <attr name="title">WLW Projekt</attr>
         <!-- The Application's global description, if nothing else was declared -->
         <attr name="description">My Website powered by Skyline CMS and TASoft Applications</attr>
 
@@ -67,7 +67,7 @@ This project file will be loaded by the compiler to preprocess the application
         -->
 
         <!-- List all compiler factories you want to compile from -->
-        <factory>Skyline\Compiler\Factory\CompleteWithPackagesCompilersFactory</factory>
+        <factory>Application\Compiler\OptimierterCompiler</factory>
 
         <!-- or only the top level compilers -->
         <!-- <factory>Skyline\Compiler\Factory\CompleteCompilersFactory</factory> -->

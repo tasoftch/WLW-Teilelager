@@ -13,9 +13,14 @@ class WLWApiActionController extends AbstractAPIActionController
         return true;
     }
 
-    public function acceptOrigin(Request $request, bool &$requireCredentials = false): bool
+    public function acceptsCrossOriginRequest(Request $request): bool
     {
-        return true;
+        return false;
+    }
+
+    protected function getDefaultRenderName(): ?string
+    {
+        return JSONRender::RENDER_NAME;
     }
 
     /**

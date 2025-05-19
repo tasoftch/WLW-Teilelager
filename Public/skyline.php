@@ -44,17 +44,15 @@ require 'vendor/autoload.php';
 
 $configuration = Bootstrap::getConfigurationPath('SkylineAppData/');
 
-CORS::registerHost('www.example.org', '', false, 'Main');
-CORS::registerHost('admin.example.org', '', false, 'Admin');
-CORS::registerHost('example.org');
-CORS::registerHost('api.example.org', '*.example.org', false, 'API');
+CORS::registerHost('localhost:8080', '', false, 'Main');
+CORS::registerHost('localhost:8080/api/v1/', 'localhost:8080', false, 'API');
 
 
 Bootstrap::bootstrap($configuration);
 
 /** @var \TASoft\Service\ServiceManager $SERVICES */
 global $SERVICES;
-$SERVICES->setParameter("AppTitle", "My Website");
+$SERVICES->setParameter("AppTitle", "WLW Projekt");
 $SERVICES->setParameter("AppDescription", "My Website powered by Skyline CMS and TASoft Applications");
 
 $app = new Application();

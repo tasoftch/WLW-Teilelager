@@ -13,6 +13,11 @@ return array (
       'controller' => 'Application\\Controller\\IndexController',
       'method' => 'indexAction',
     ),
+    '/test-api' => 
+    array (
+      'controller' => 'Application\\Controller\\IndexController',
+      'method' => 'testApiAction',
+    ),
     '/submenu-1' => 
     array (
       'controller' => 'Application\\Controller\\SubmenuActionController',

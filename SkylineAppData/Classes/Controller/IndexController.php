@@ -37,4 +37,14 @@ class IndexController extends AbstractActionController
             "Content" => 'home'
         ]);
     }
+
+    /**
+     * @route literal /test-api
+     */
+    public function testApiAction() {
+
+        $this->renderTemplate("main", [
+            "Content" => 'api-request'
+        ]);
+    }
 }

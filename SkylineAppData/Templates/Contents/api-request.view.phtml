@@ -1,0 +1,50 @@
+<?php
+
+use Skyline\Render\Context\DefaultRenderContext;
+/**
+ * @title WLW Projekt :: Home API
+ * @description WLW Projekt :: Kleinteilelager API Request Example
+ * @require Application
+ *
+ * @var DefaultRenderContext $this
+ */
+
+?>
+<div class="content">
+    <button onclick="call_api()" class="btn btn-sm btn-outline-primary">
+        Call API
+    </button>
+</div>
+<script type="text/javascript">
+    $(()=>{
+        Skyline.API.get("my-api-action")
+    })
+
+    function call_api() {
+        const fd = new FormData();
+        fd.append("name", "Thomas")
+
+        // Progressbar einschalten
+
+        Skyline.API.post("my-api-action", fd)
+            .upload( (p, g, t) => {
+                // Status aktualisieren (Progressbar)
+            })
+            .download( (p, g, t) => {
+                // Status aktualisieren (Progressbar)
+            })
+            .success( (data) => {
+                // Daten bereits als JSON erhalten
+                console.log(data)
+            } )
+            .error( (e) => {
+                // Eventuelle Fehler behandeln
+                console.error(e.message)
+            } )
+            .done(()=>{
+                // Wird immer ausgeführt, egal ob request erfolgreich war oder nicht.
+                // Progressbar stoppen.
+                alert("Done")
+            })
+    }
+</script>

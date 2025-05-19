@@ -3,6 +3,11 @@
 return array (
   'URI' => 
   array (
+    '/api/v1/my-api-action' => 
+    array (
+      'controller' => 'Application\\Controller\\WLWApiActionController',
+      'method' => 'myAPIAction',
+    ),
     '/' => 
     array (
       'controller' => 'Application\\Controller\\IndexController',

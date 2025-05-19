@@ -7,7 +7,6 @@
  */
  
  return array (
-  'twbs/bootstrap' => 'vendor/twbs/bootstrap/composer.json',
   'tasoft/collection' => 'vendor/tasoft/collection/composer.json',
   'tasoft/event-manager' => 'vendor/tasoft/event-manager/composer.json',
   'tasoft/method-signature' => 'vendor/tasoft/method-signature/composer.json',

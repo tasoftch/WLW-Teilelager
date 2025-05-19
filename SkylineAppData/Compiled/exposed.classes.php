@@ -6,11 +6,12 @@ return array (
     array (
       '#' => 
       array (
-        0 => 'Application\\Controller\\GeneralHTTPErrorController',
-        1 => 'Application\\Controller\\IndexController',
-        2 => 'Skyline\\Application\\Controller\\AbstractActionController',
-        3 => 'Skyline\\CMS\\Controller\\AbstractTemplateActionController',
-        4 => 'Skyline\\API\\Controller\\AbstractAPIActionController',
+        0 => 'Application\\Controller\\WLWApiActionController',
+        1 => 'Application\\Controller\\GeneralHTTPErrorController',
+        2 => 'Application\\Controller\\IndexController',
+        3 => 'Skyline\\Application\\Controller\\AbstractActionController',
+        4 => 'Skyline\\CMS\\Controller\\AbstractTemplateActionController',
+        5 => 'Skyline\\API\\Controller\\AbstractAPIActionController',
       ),
     ),
     'ERRORHANDLER' => 

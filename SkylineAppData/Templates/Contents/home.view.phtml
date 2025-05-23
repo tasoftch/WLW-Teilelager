@@ -10,6 +10,8 @@ use Skyline\Render\Context\DefaultRenderContext;
  */
 
 ?>
+
+
 <div class="content">
 	<div >
         Resourcen Felder:
@@ -20,5 +22,78 @@ use Skyline\Render\Context\DefaultRenderContext;
             <li>Bestand</li>
             <li>Lagerort</li>
         </ul>
+
+            <h1>Bauteile</h1>
+    <?= $msg; ?>
+    <table id="my-example">
+        <thead>
+            <tr>
+                <th>Typ</th>
+                <th>Beschreibung</th>
+                <th>Lagerort</th>
+                <th>Bestand</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf8" src="https://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+<script>
+    $(()=>{
+        Skyline.API.get("fetch-lines")
+    })
+
+    function call_fetch_lines() {
+        const fd = new FormData();
+        fd.append("name", "Thomas")
+
+    Skyline.API.get("fetch-lines", fd)
+            .upload( (p, g, t) => {
+                // Status aktualisieren (Progressbar)
+            })
+            .download( (p, g, t) => {
+                // Status aktualisieren (Progressbar)
+            })
+            .success( (data) => {
+                // Daten bereits als JSON erhalten
+                console.log(data)
+            } )
+            .error( (e) => {
+                // Eventuelle Fehler behandeln
+                console.error(e.message)
+            } )
+            .done(()=>{
+                // Wird immer ausgeführt, egal ob request erfolgreich war oder nicht.
+                // Progressbar stoppen.
+                alert("Done")
+            })
+        }
+    }
+
+    $(document).ready(function() {
+        $('#my-example').dataTable({
+            "bProcessing": true,
+            // "sAjaxSource": "api/v1/fetch-lines",
+            "sAjaxSource": call_fetch_lines(),
+            "aoColumns": [{
+                    mData: 'Name'
+                },
+                {
+                    mData: 'Beschreibung'
+                },
+                {
+                    mData: 'Lagerort'
+                },
+                {
+                    mData: 'Bestand'
+                }
+            ]
+        });
+    });
+</script>
+    

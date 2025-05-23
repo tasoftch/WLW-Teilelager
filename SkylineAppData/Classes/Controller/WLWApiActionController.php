@@ -46,4 +46,47 @@ class WLWApiActionController extends AbstractAPIActionController
 
         $model["test"] = 23;
     }
+
+    /**
+     * @route literal /api/v1/fetch-lines
+     */
+    public function table_fetch_lines()
+    {
+        /* From: https://www.stechies.com/fetch-data-from-database-in-php-and-display-in-html-table/
+        // 3. example, adapted 
+        
+        $selectQuery = "SELECT * FROM `tbl_users` ORDER BY `user_id` ASC";
+        $result = mysqli_query($connectQuery,$selectQuery);
+        if(mysqli_num_rows($result) > 0){
+            $result_array = array();
+            while($row = mysqli_fetch_assoc($result)){
+                array_push($result_array, $row);
+            }
+            
+        }*/
+
+        
+
+        $result_array = array();
+        array_push(["t1", "Hallo", "MX34", "5"]);
+
+        $results = ["sEcho" => 1,
+        "iTotalRecords" => count($result_array),
+        "iTotalDisplayRecords" => count($result_array),
+        "aaData" => $result_array ];
+
+        $model = $this->getModel();
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $model["sent-data"] = $_POST;
+        }
+
+        $model["test"] = $results;
+
+        
+        // echo json_encode($results);
+        
+    }
+
+}
 }

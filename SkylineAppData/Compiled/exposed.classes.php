@@ -6,12 +6,14 @@ return array (
     array (
       '#' => 
       array (
-        0 => 'Application\\Controller\\WLWApiActionController',
-        1 => 'Application\\Controller\\GeneralHTTPErrorController',
-        2 => 'Application\\Controller\\IndexController',
-        3 => 'Skyline\\Application\\Controller\\AbstractActionController',
-        4 => 'Skyline\\CMS\\Controller\\AbstractTemplateActionController',
-        5 => 'Skyline\\API\\Controller\\AbstractAPIActionController',
+        0 => 'Application\\Controller\\GeneralHTTPErrorController',
+        1 => 'Application\\Controller\\LagerAPIActionController',
+        2 => 'Application\\Controller\\MaterialAPIActionController',
+        3 => 'Application\\Controller\\BestandAPIActionController',
+        4 => 'Application\\Controller\\IndexController',
+        5 => 'Skyline\\Application\\Controller\\AbstractActionController',
+        6 => 'Skyline\\CMS\\Controller\\AbstractTemplateActionController',
+        7 => 'Skyline\\API\\Controller\\AbstractAPIActionController',
       ),
     ),
     'PDO' => 

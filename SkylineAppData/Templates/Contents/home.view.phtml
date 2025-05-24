@@ -10,15 +10,89 @@ use Skyline\Render\Context\DefaultRenderContext;
  */
 
 ?>
+<style>
+    #tbl-material tr td.info {
+        font-size: 80%;
+        color: gray;
+        vertical-align: middle;
+    }
+
+    #tbl-material .mat-tools {
+        text-align: right;
+    }
+</style>
+<script type="application/javascript">
+    // Du kannst hier
+    const SETUP = {};
+
+    function click_btn(sender, material_id) {
+        if($(sender).hasClass("mat-delete")) {
+            alert("Delete Material "+material_id);
+        } else {
+            alert("Edit Material "+material_id);
+        }
+    }
+
+    function insert_template(data) {
+        if(data.hasOwnProperty("id")) {
+            const id = data['id'];
+            delete data['id'];
+
+            let template = $("<tr>");
+            template.html( SETUP.tpl );
+
+            for(const e in data) {
+                template.find("td.mat-"+e).text( data[e] )
+            }
+
+            template.find("button").on("click", function() {
+                click_btn(this, id)
+            });
+
+            $("#tbl-material tbody").append(template);
+        }
+    }
+
+    $(()=>{
+        const tpl= $("#tbl-material tbody .template");
+        SETUP.tpl = tpl.html();
+        tpl.remove()
+
+        setTimeout(()=>{
+            insert_template({
+                'id': 22,
+                'name': "Mutter M4",
+                "info": "Das ist ein Test",
+                "lager": "Lager 35",
+                "anzahl": 56
+            })
+        }, 2000)
+    })
+</script>
 <div class="content">
-	<div >
-        Resourcen Felder:
-        <ul>
-            <li>Name</li>
-            <li>Beschreibung</li>
-            <li>Keywords</li>
-            <li>Bestand</li>
-            <li>Lagerort</li>
-        </ul>
-    </div>
+	<h1>Material</h1>
+
+    <table class="table table-sm table-striped table-hover" id="tbl-material">
+        <thead>
+        <tr>
+            <th>Material</th>
+            <th>Beschreibung</th>
+            <th>Lagerort</th>
+            <th>Bestand</th>
+            <th> </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="template">
+            <td class="mat-name">Schraube M3x15mm</td>
+            <td class="mat-info info">DIN 912 Zylinderschrauben mit Innensechskant; ISO 4762 modifiziert [Norm zurückgezogen] 912</td>
+            <td class="mat-lager">Lager 13</td>
+            <td class="mat-anzahl">38</td>
+            <td class="mat-tools">
+                <button class="mat-delete btn btn-sm btn-outline-danger p-0 px-2">Löschen</button>
+                <button class="mat-edit btn btn-sm btn-outline-primary p-0 px-2">Ändern</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>

@@ -7,4 +7,19 @@
     </css>
     <brand name="&lt;span class='text-success'&gt;WLW&lt;/span&gt; KT-Regal" URL="/" icon="/Public/img/logo.png" />
 
+    <item id="m1">
+        <title>Lagerorte</title>
+        <action type="rel" regex="%^/?lagerorte%i">/lagerorte</action>
+    </item>
+    <!--
+    <item id="m1">
+        <title>Bestand</title>
+        <action type="rel" regex="%^/?bestand%i">/bestand</action>
+    </item>
+    -->
+
+    <item id="m1">
+        <title>API Beispiel</title>
+        <action type="rel" regex="%^/?test-api%i">/test-api</action>
+    </item>
 </navigation>

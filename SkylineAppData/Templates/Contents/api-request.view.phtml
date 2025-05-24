@@ -14,11 +14,34 @@ use Skyline\Render\Context\DefaultRenderContext;
     <button onclick="call_api()" class="btn btn-sm btn-outline-primary">
         Call API
     </button>
+
+    <button onclick="call_material()" class="btn btn-sm btn-outline-primary">
+        Call Material
+    </button>
 </div>
 <script type="text/javascript">
     $(()=>{
         Skyline.API.get("my-api-action")
+
+        Skyline.API.get("material-list?from=0&count=10&order=name&desc&search=mutter%20m3,verzinkt")
+            .success(data=>{
+                console.log(data);
+            })
     })
+
+    function call_material() {
+        const id = prompt("Bitte Material-Nummer eingeben: ");
+        if(! /^\d+$/.test(id) ) {
+            alert("Ungültiges Material.");
+            return;
+        }
+        Skyline.API.get("material-fetch?material_id="+encodeURI(id*1))
+            .success((data) => {
+                console.log(data)
+            })
+    }
+
+
 
     function call_api() {
         const fd = new FormData();

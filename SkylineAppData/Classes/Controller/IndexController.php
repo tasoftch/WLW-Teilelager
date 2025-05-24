@@ -47,4 +47,24 @@ class IndexController extends AbstractActionController
             "Content" => 'api-request'
         ]);
     }
+
+	/**
+	 * @route literal /lagerorte
+	 */
+	public function lagerorteAction() {
+
+		$this->renderTemplate("main", [
+			"Content" => 'lagerorte'
+		]);
+	}
+
+	/**
+	 * @route literal /bestand
+	 */
+	public function bestandAction() {
+
+		$this->renderTemplate("main", [
+			"Content" => 'bestand'
+		]);
+	}
 }

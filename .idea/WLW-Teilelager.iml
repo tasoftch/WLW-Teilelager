@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/SkylineAppData/Classes" isTestSource="false" packagePrefix="Application\" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/skyline/api" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/skyline/binary" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/skyline/cms" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/skyline/compiler" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/skyline/component-api" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/skyline/component-bootstrap" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/skyline/component-skyline" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/skyline/core-application" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/skyline/direct-components" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/skyline/exposed-symbols" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/skyline/html-elements" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/skyline/html-form" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/skyline/html-render" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/skyline/kernel" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/skyline/navigation" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/skyline/pdo" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/skyline/render" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/skyline/route-annotation-compiler" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/skyline/router" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/deprecation-contracts" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/filesystem" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/http-foundation" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-ctype" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-mbstring" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-php83" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tasoft/collection" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tasoft/config" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tasoft/dependency-injection" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tasoft/event-manager" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tasoft/menu-service" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tasoft/method-signature" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tasoft/mime" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tasoft/php-pdo" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tasoft/php-string-parser" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tasoft/service-manager" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/tasoft/tools-path" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

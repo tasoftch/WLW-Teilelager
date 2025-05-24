@@ -1,13 +1,14 @@
 <?php
 /**
  *  == TASoft Config Compiler ==
- *  Target: TASoft\Config\Compiler\Target\FileTarget (/Users/thomas/Webseiten/wlw-lager/SkylineAppData//Compiled/main.config.php)
+ *  Target: TASoft\Config\Compiler\Target\FileTarget (/Users/thomas/Library/CloudStorage/OneDrive-Persönlich/TASoft Sources/WLW-Teilelager/SkylineAppData//Compiled/main.config.php)
  *  Compiled from:
- *	1.	/Users/thomas/Webseiten/wlw-lager/vendor/skyline/kernel/lib/kernel.config.php
- *	2.	/Users/thomas/Webseiten/wlw-lager/vendor/skyline/exposed-symbols/exposed-symbols.config.php
- *	3.	/Users/thomas/Webseiten/wlw-lager/vendor/skyline/render/render.config.php
- *	4.	/Users/thomas/Webseiten/wlw-lager/vendor/skyline/html-render/html.render.config.php
- *	5.	/Users/thomas/Webseiten/wlw-lager/SkylineAppData/Config/default.config.php
+ *	1.	/Users/thomas/Library/CloudStorage/OneDrive-Persönlich/TASoft Sources/WLW-Teilelager/vendor/skyline/kernel/lib/kernel.config.php
+ *	2.	/Users/thomas/Library/CloudStorage/OneDrive-Persönlich/TASoft Sources/WLW-Teilelager/vendor/skyline/exposed-symbols/exposed-symbols.config.php
+ *	3.	/Users/thomas/Library/CloudStorage/OneDrive-Persönlich/TASoft Sources/WLW-Teilelager/vendor/skyline/render/render.config.php
+ *	4.	/Users/thomas/Library/CloudStorage/OneDrive-Persönlich/TASoft Sources/WLW-Teilelager/vendor/skyline/html-render/html.render.config.php
+ *	5.	/Users/thomas/Library/CloudStorage/OneDrive-Persönlich/TASoft Sources/WLW-Teilelager/vendor/skyline/pdo/pdo.config.php
+ *	6.	/Users/thomas/Library/CloudStorage/OneDrive-Persönlich/TASoft Sources/WLW-Teilelager/SkylineAppData/Config/default.config.php
  */
 
 return array (
@@ -114,6 +115,47 @@ return array (
       'arguments' => 
       array (
         'templateFile' => '$(C)/templates.config.php',
+      ),
+    ),
+    'PDO' => 
+    array (
+      'container' => 'Skyline\\PDO\\Config\\PDOFactory',
+      'arguments' => 
+      array (
+        'defaultPDO' => '%pdo.primary%',
+        'alternatePDO' => '%pdo.secondary%',
+      ),
+      'type' => 'Skyline\\PDO\\AbstractPDO',
+    ),
+    'MySQL' => 
+    array (
+      'class' => 'Skyline\\PDO\\MySQL',
+      'arguments' => 
+      array (
+        'host' => '%pdo.mysql.host%',
+        'dbname' => '%pdo.mysql.dataBase%',
+        'username' => '%pdo.mysql.username%',
+        'password' => '%pdo.mysql.password%',
+        'socket' => '%pdo.mysql.socket%',
+        'verified' => '%pdo.mysql.verified%',
+      ),
+      'configuration' => 
+      array (
+        'prefix' => '%pdo.prefix%',
+      ),
+    ),
+    'SQLite' => 
+    array (
+      'class' => 'Skyline\\PDO\\SQLite',
+      'arguments' => 
+      array (
+        'filename' => '%pdo.sqlite.filename%',
+        'username' => '%pdo.sqlite.username%',
+        'password' => '%pdo.sqlite.password%',
+      ),
+      'configuration' => 
+      array (
+        'prefix' => '%pdo.prefix%',
       ),
     ),
     'mainNavigation' => 

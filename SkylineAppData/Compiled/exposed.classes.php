@@ -14,6 +14,15 @@ return array (
         5 => 'Skyline\\API\\Controller\\AbstractAPIActionController',
       ),
     ),
+    'PDO' => 
+    array (
+      '#' => 
+      array (
+        0 => 'Skyline\\PDO\\MySQL',
+        1 => 'Skyline\\PDO\\AbstractPDO',
+        2 => 'Skyline\\PDO\\SQLite',
+      ),
+    ),
     'ERRORHANDLER' => 
     array (
       '#' => 

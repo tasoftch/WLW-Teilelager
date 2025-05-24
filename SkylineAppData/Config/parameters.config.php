@@ -21,6 +21,23 @@
  * SOFTWARE.
  */
 
+use Skyline\PDO\MySQL;
+use Skyline\PDO\SQLite;
+
 return [
-    'Logger.Env' => false
+    'Logger.Env' => false,
+
+	'pdo.primary' => SQLite::SERVICE_NAME,
+	'pdo.secondary' => SQLite::SERVICE_NAME,
+	"pdo.prefix" => 'SKY_',
+
+	'pdo.mysql.host' => 'localhost',
+	'pdo.mysql.dataBase' => '',
+	'pdo.mysql.username' => '',
+	'pdo.mysql.password' => '',
+	'pdo.mysql.socket' => '',
+
+	'pdo.sqlite.filename' => '$(U)/wlw-teilelager.db',
+	"pdo.sqlite.username" => '',
+	"pdo.sqlite.password" => ''
 ];

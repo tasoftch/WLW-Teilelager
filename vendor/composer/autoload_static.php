@@ -12,8 +12,8 @@ class ComposerStaticInit31d1e0ca19d9c0b337d809cfbe89001c
         '662a729f963d39afe703c9d9b7ab4a8c' => __DIR__ . '/..' . '/symfony/polyfill-php83/bootstrap.php',
         'b2d0727cd6f66dea4fb3b1adab47d55d' => __DIR__ . '/..' . '/skyline/kernel/lib/CoreFunctions.php',
         '94180942ef33b1de9b175fe4d03599c5' => __DIR__ . '/..' . '/skyline/kernel/lib/Constants.php',
-        'e8851e0f51cfc4d1bc70a2a1360fbb08' => __DIR__ . '/..' . '/skyline/direct-components/src/Constants.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+        'e8851e0f51cfc4d1bc70a2a1360fbb08' => __DIR__ . '/..' . '/skyline/direct-components/src/Constants.php',
         '13d93204a1b173ea64948a308efdf0bc' => __DIR__ . '/..' . '/skyline/core-application/src/Constants.php',
     );
 
@@ -39,6 +39,7 @@ class ComposerStaticInit31d1e0ca19d9c0b337d809cfbe89001c
             'Symfony\\Component\\Filesystem\\' => 29,
             'Skyline\\Router\\' => 15,
             'Skyline\\Render\\' => 15,
+            'Skyline\\PDO\\' => 12,
             'Skyline\\Navigation\\' => 19,
             'Skyline\\Kernel\\' => 15,
             'Skyline\\HTML\\Form\\' => 18,
@@ -64,6 +65,7 @@ class ComposerStaticInit31d1e0ca19d9c0b337d809cfbe89001c
         array (
             0 => __DIR__ . '/..' . '/tasoft/mime/src',
             1 => __DIR__ . '/..' . '/tasoft/tools-path/src',
+            2 => __DIR__ . '/..' . '/tasoft/php-pdo/src',
         ),
         'TASoft\\Service\\' => 
         array (
@@ -124,6 +126,10 @@ class ComposerStaticInit31d1e0ca19d9c0b337d809cfbe89001c
         'Skyline\\Render\\' => 
         array (
             0 => __DIR__ . '/..' . '/skyline/render/src',
+        ),
+        'Skyline\\PDO\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/skyline/pdo/src',
         ),
         'Skyline\\Navigation\\' => 
         array (

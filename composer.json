@@ -23,7 +23,8 @@
     "skyline/route-annotation-compiler": "^8.0",
     "skyline/api": "^8.0",
     "skyline/component-api": "^8.0",
-    "skyline/component-bootstrap": "^5.2"
+    "skyline/component-bootstrap": "^5.2",
+    "skyline/pdo": "^0.9"
   },
   "scripts": {
     "compile:live": "php vendor/bin/skyline.phar compile --project live-project.xml --no-interaction"

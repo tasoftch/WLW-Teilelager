@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="MessDetectorOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PHPCSFixerOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PHPCodeSnifferOptionsConfiguration">
+    <option name="highlightLevel" value="WARNING" />
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PhpIncludePathManager">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/tasoft/config" />
+      <path value="$PROJECT_DIR$/vendor/symfony/filesystem" />
+      <path value="$PROJECT_DIR$/vendor/tasoft/menu-service" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php83" />
+      <path value="$PROJECT_DIR$/vendor/tasoft/method-signature" />
+      <path value="$PROJECT_DIR$/vendor/tasoft/collection" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/vendor/symfony/deprecation-contracts" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/tasoft/tools-path" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/vendor/tasoft/event-manager" />
+      <path value="$PROJECT_DIR$/vendor/tasoft/php-string-parser" />
+      <path value="$PROJECT_DIR$/vendor/tasoft/mime" />
+      <path value="$PROJECT_DIR$/vendor/tasoft/service-manager" />
+      <path value="$PROJECT_DIR$/vendor/tasoft/dependency-injection" />
+      <path value="$PROJECT_DIR$/vendor/skyline/component-bootstrap" />
+      <path value="$PROJECT_DIR$/vendor/skyline/core-application" />
+      <path value="$PROJECT_DIR$/vendor/skyline/navigation" />
+      <path value="$PROJECT_DIR$/vendor/skyline/render" />
+      <path value="$PROJECT_DIR$/vendor/skyline/component-skyline" />
+      <path value="$PROJECT_DIR$/vendor/skyline/route-annotation-compiler" />
+      <path value="$PROJECT_DIR$/vendor/skyline/exposed-symbols" />
+      <path value="$PROJECT_DIR$/vendor/skyline/direct-components" />
+      <path value="$PROJECT_DIR$/vendor/skyline/binary" />
+      <path value="$PROJECT_DIR$/vendor/skyline/html-elements" />
+      <path value="$PROJECT_DIR$/vendor/skyline/api" />
+      <path value="$PROJECT_DIR$/vendor/skyline/html-render" />
+      <path value="$PROJECT_DIR$/vendor/skyline/compiler" />
+      <path value="$PROJECT_DIR$/vendor/skyline/cms" />
+      <path value="$PROJECT_DIR$/vendor/skyline/component-api" />
+      <path value="$PROJECT_DIR$/vendor/skyline/kernel" />
+      <path value="$PROJECT_DIR$/vendor/skyline/router" />
+      <path value="$PROJECT_DIR$/vendor/skyline/html-form" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/tasoft/php-pdo" />
+      <path value="$PROJECT_DIR$/vendor/skyline/pdo" />
+    </include_path>
+  </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
+  <component name="PhpStanOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+  <component name="PsalmOptionsConfiguration">
+    <option name="transferred" value="true" />
+  </component>
+</project>

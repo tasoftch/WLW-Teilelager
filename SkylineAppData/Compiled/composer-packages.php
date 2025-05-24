@@ -32,6 +32,8 @@
   'skyline/navigation' => 'vendor/skyline/navigation/composer.json',
   'skyline/cms' => 'vendor/skyline/cms/composer.json',
   'wlw/kleinteilelager' => './',
+  'tasoft/php-pdo' => 'vendor/tasoft/php-pdo/composer.json',
+  'skyline/pdo' => 'vendor/skyline/pdo/composer.json',
   'symfony/polyfill-ctype' => 'vendor/symfony/polyfill-ctype/composer.json',
   'symfony/filesystem' => 'vendor/symfony/filesystem/composer.json',
   'skyline/compiler' => 'vendor/skyline/compiler/composer.json',

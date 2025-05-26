@@ -15,7 +15,7 @@ class MaterialAPIActionController extends AbstractAPIActionController
     public function acceptsAnonymousRequest(Request $request): bool
     {
         // Für dieses in gesichertem Rahmen laufende Projekte werden alle Requests zwecks Tests zugelassen.
-        return true;
+        return false;
     }
 
     public function acceptsCrossOriginRequest(Request $request): bool

@@ -34,7 +34,7 @@ return [
         "js" => new JavaScriptPostLoadComponent(
         	...AbstractComponent::makeLocalFileComponentArguments(
         		"/Public/Skyline/skyline-api.min.js",
-				$apiFileJS
+				$apiFileJS, NULL, NULL
 			)
         ),
 		'js-loader' => new JavaScriptPostLoadComponent(
@@ -49,7 +49,7 @@ return [
         	...AbstractComponent::makeLocalFileComponentArguments(
 			"/Public/Skyline/skyline-api.min.css",
 			$apiFileCSS,
-			'sha384',
+			NULL,
 			NULL,
 				"all"
 		)),

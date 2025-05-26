@@ -69,8 +69,8 @@ return array (
       array (
         0 => '/Public/Skyline/skyline-api.min.js',
         1 => 'application/javascript',
-        2 => 'sha384-6eNEDSAHXAt8AX3FyoOyx675xaw6BcXLw4O57npdM6LiNddjM+JAt0e6BslICGbD',
-        3 => 'anonymous',
+        2 => NULL,
+        3 => NULL,
       ),
     ),
     'js-loader' => 
@@ -91,8 +91,8 @@ return array (
       array (
         0 => '/Public/Skyline/skyline-api.min.css',
         1 => 'all',
-        2 => 'sha384-WyNdNnC83KaYqN3XIT4WaYhLbMaPfeHKBm0zjAQTTtDMtUUarc8gdIGeizq6QrjI',
-        3 => 'anonymous',
+        2 => NULL,
+        3 => NULL,
       ),
     ),
     '@require' => 

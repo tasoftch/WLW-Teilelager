@@ -59,5 +59,10 @@ return [
 				]
 			]
 		],
+        "logErrorHandler" => [
+            AbstractFileConfiguration::SERVICE_INIT_ARGUMENTS => [
+                "file" => '/dev/null'
+            ]
+        ]
     ]
 ];

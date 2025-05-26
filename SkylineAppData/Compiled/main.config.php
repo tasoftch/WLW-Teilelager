@@ -70,7 +70,7 @@ return array (
       'class' => 'Skyline\\Kernel\\Service\\Error\\LogErrorHandlerService',
       'arguments' => 
       array (
-        'file' => '$(L)/',
+        'file' => '/dev/null',
         'env' => '%Logger.Env%',
       ),
     ),

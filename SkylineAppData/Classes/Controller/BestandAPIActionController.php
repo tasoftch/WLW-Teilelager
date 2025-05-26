@@ -21,6 +21,11 @@ class BestandAPIActionController extends AbstractAPIActionController
 		return true;
 	}
 
+    public function acceptOrigin(Request $request, bool &$requireCredentials = false): bool
+    {
+        return true;
+    }
+
 	/**
 	 * @route literal /api/v1/bestand-buchen
 	 */

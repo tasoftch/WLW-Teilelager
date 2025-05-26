@@ -24,6 +24,11 @@ class MaterialAPIActionController extends AbstractAPIActionController
         return true;
     }
 
+    public function acceptOrigin(Request $request, bool &$requireCredentials = false): bool
+    {
+        return true;
+    }
+
     protected function getDefaultRenderName(): ?string
     {
         // Sollte es dennoch zu Fehlern kommen, soll immer in JSON geantwortet werden.

@@ -276,6 +276,8 @@ abstract class AbstractAPIActionController extends AbstractActionController impl
                         $response->headers->set("Access-Control-Allow-Origin", $theOrigin, true);
                         if($requireCredentials)
                             $response->headers->set("Access-Control-Allow-Credentials", 'true', true);
+                        else
+                            $response->headers->set("Access-Control-Allow-Credentials", 'false', true);
                         if($methods = $this->getAcceptedHTTPMethods($request)) {
                             $methods = array_map(function($a) { return strtoupper($a); }, $methods);
                             $response->headers->set("Access-Control-Allow-Methods", implode(",", $methods), true);

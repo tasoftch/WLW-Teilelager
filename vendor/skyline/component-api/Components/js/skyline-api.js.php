@@ -3,6 +3,7 @@ use Skyline\Kernel\Loader\RequestLoader;
 use Skyline\Kernel\Service\CORSService;
 use Skyline\Security\CSRF\CSRFTokenManager;
 use TASoft\Service\ServiceManager;
+header("Content-Type: application/javascript");
 ?>
 /*
  * BSD 3-Clause License

@@ -1,12 +1,12 @@
 <?php
 /**
  *  == TASoft Config Compiler ==
- *  Target: TASoft\Config\Compiler\Target\FileTarget (/Users/thomas/Library/CloudStorage/OneDrive-Persönlich/TASoft Sources/WLW-Teilelager/SkylineAppData//Compiled/components.config.php)
+ *  Target: TASoft\Config\Compiler\Target\FileTarget (/Users/thomas/Webseiten/WLW-Teilelager/SkylineAppData//Compiled/components.config.php)
  *  Compiled from:
- *	1.	/Users/thomas/Library/CloudStorage/OneDrive-Persönlich/TASoft Sources/WLW-Teilelager/vendor/skyline/component-skyline/components.cfg.php
- *	2.	/Users/thomas/Library/CloudStorage/OneDrive-Persönlich/TASoft Sources/WLW-Teilelager/vendor/skyline/component-api/components.cfg.php
- *	3.	/Users/thomas/Library/CloudStorage/OneDrive-Persönlich/TASoft Sources/WLW-Teilelager/vendor/skyline/component-bootstrap/components.cfg.php
- *	4.	/Users/thomas/Library/CloudStorage/OneDrive-Persönlich/TASoft Sources/WLW-Teilelager/SkylineAppData/Config/components.config.php
+ *	1.	/Users/thomas/Webseiten/WLW-Teilelager/vendor/skyline/component-skyline/components.cfg.php
+ *	2.	/Users/thomas/Webseiten/WLW-Teilelager/vendor/skyline/component-api/components.cfg.php
+ *	3.	/Users/thomas/Webseiten/WLW-Teilelager/vendor/skyline/component-bootstrap/components.cfg.php
+ *	4.	/Users/thomas/Webseiten/WLW-Teilelager/SkylineAppData/Config/components.config.php
  */
 
 return array (
@@ -29,8 +29,8 @@ return array (
       array (
         0 => '/Public/Skyline/skyline.min.js',
         1 => 'application/javascript',
-        2 => 'sha384-8IffRIwlfWTVrcZ7VEnwUmMCITTEsVI+Eyg/fUtAFoj8pAnDkuiCwnkFPbCjTm3q',
-        3 => 'anonymous',
+        2 => NULL,
+        3 => NULL,
       ),
     ),
     'css' => 
@@ -40,8 +40,8 @@ return array (
       array (
         0 => '/Public/Skyline/skyline.min.css',
         1 => 'all',
-        2 => 'sha384-PnUlTxCqcZwRm2uH015a4rRc/YKQystSSiPsbQbmUIstLJlQi4Lu/zDBZy4cYQUN',
-        3 => 'anonymous',
+        2 => NULL,
+        3 => NULL,
       ),
     ),
   ),

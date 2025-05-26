@@ -11,7 +11,8 @@ return [
 		"js" => new JavaScriptComponent(
 				...AbstractComponent::makeLocalFileComponentArguments(
 				"/Public/Skyline/skyline.min.js",
-				__DIR__ . "/dist/skyline.min.js"
+				__DIR__ . "/dist/skyline.min.js",
+                    NULL, NULL
 			)
 		),
         "css" => new CSSComponent(
@@ -19,7 +20,7 @@ return [
 			...AbstractComponent::makeLocalFileComponentArguments(
 				"/Public/Skyline/skyline.min.css",
 				__DIR__ . "/dist/skyline.min.css",
-				'sha384',
+				NULL,
 				NULL,
 				'all'
 			)

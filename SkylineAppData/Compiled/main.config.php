@@ -1,14 +1,14 @@
 <?php
 /**
  *  == TASoft Config Compiler ==
- *  Target: TASoft\Config\Compiler\Target\FileTarget (/Users/thomas/Library/CloudStorage/OneDrive-Persönlich/TASoft Sources/WLW-Teilelager/SkylineAppData//Compiled/main.config.php)
+ *  Target: TASoft\Config\Compiler\Target\FileTarget (/Users/thomas/Webseiten/WLW-Teilelager/SkylineAppData//Compiled/main.config.php)
  *  Compiled from:
- *	1.	/Users/thomas/Library/CloudStorage/OneDrive-Persönlich/TASoft Sources/WLW-Teilelager/vendor/skyline/kernel/lib/kernel.config.php
- *	2.	/Users/thomas/Library/CloudStorage/OneDrive-Persönlich/TASoft Sources/WLW-Teilelager/vendor/skyline/exposed-symbols/exposed-symbols.config.php
- *	3.	/Users/thomas/Library/CloudStorage/OneDrive-Persönlich/TASoft Sources/WLW-Teilelager/vendor/skyline/render/render.config.php
- *	4.	/Users/thomas/Library/CloudStorage/OneDrive-Persönlich/TASoft Sources/WLW-Teilelager/vendor/skyline/html-render/html.render.config.php
- *	5.	/Users/thomas/Library/CloudStorage/OneDrive-Persönlich/TASoft Sources/WLW-Teilelager/vendor/skyline/pdo/pdo.config.php
- *	6.	/Users/thomas/Library/CloudStorage/OneDrive-Persönlich/TASoft Sources/WLW-Teilelager/SkylineAppData/Config/default.config.php
+ *	1.	/Users/thomas/Webseiten/WLW-Teilelager/vendor/skyline/kernel/lib/kernel.config.php
+ *	2.	/Users/thomas/Webseiten/WLW-Teilelager/vendor/skyline/exposed-symbols/exposed-symbols.config.php
+ *	3.	/Users/thomas/Webseiten/WLW-Teilelager/vendor/skyline/render/render.config.php
+ *	4.	/Users/thomas/Webseiten/WLW-Teilelager/vendor/skyline/html-render/html.render.config.php
+ *	5.	/Users/thomas/Webseiten/WLW-Teilelager/vendor/skyline/pdo/pdo.config.php
+ *	6.	/Users/thomas/Webseiten/WLW-Teilelager/SkylineAppData/Config/default.config.php
  */
 
 return array (

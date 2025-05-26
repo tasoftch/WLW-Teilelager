@@ -87,13 +87,26 @@ class MaterialAPIActionController extends AbstractAPIActionController
 
 	/**
 	 * @route literal /api/v1/material-list
+     *
+     *
+     *
+     * @example https://localhost:8080/api/v1/material-list?from=3&count=10
+     * Liefert 10 Materialeinträge ab index 3. (0 ist erstes) sortiert nach name
+     *
+     * @example https://localhost:8080/api/v1/material-list?from=5&order=description&desc
+     * Liefert 10 Einträge ab index 5 sortiert nach Beschreibung abwärts.
+     *
+     * @example https://localhost:8080/api/v1/material-list?search=m3%20mutter
+     * Liefert so viele Einträge, wie Material auf die Suchbegriffe m3 und mutter passen.
+     *
+     * Kombinationen aller Beispiele ist möglich.
 	 */
 	public function listMaterialAction() {
 		/** @var SQLite $PDO */
 		$PDO = $this->PDO;
 
-		$from = $_GET['von'] ?? 0;
-		$count = $_GET["anzahl"] ?? 10;
+		$from = $_GET['from'] ?? 0;
+		$count = $_GET["count"] ?? 10;
 		$order = urldecode( $_GET["order"] ?? 'name' );
 
 		$sql = "SELECT id FROM MATERIAL";
@@ -118,6 +131,12 @@ class MaterialAPIActionController extends AbstractAPIActionController
 
 	/**
 	 * @route literal /api/v1/material-fetch
+     *
+     * Liefert Informationen aus für ein Material.
+     *
+     * @example https://localhost:8080/api/v1/material-fetch?material_id=<id>
+     * Liefert Material-ID, -Name und -Beschreibung.
+     * Zudem eine Auflistung über alle Lagerorte mit jetzigem Bestand, wo das Material eingelagert ist.
 	 */
 	public function fetchMaterialAction() {
 		/** @var SQLite $PDO */

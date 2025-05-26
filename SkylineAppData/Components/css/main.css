@@ -41,7 +41,7 @@ body {
 header {
     background-color: #222222;
     color: white;
-    background-image: url("/Public/img/logo-code.png");
+
     background-repeat: no-repeat;
     text-shadow: 1px 1px 3px black;
     -webkit-box-shadow: 2px 5px 10px #000;

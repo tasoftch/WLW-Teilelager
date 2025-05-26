@@ -23,6 +23,7 @@ class BestandAPIActionController extends AbstractAPIActionController
 
     public function acceptOrigin(Request $request, bool &$requireCredentials = false): bool
     {
+        $requireCredentials = true;
         return true;
     }
 

@@ -40,3 +40,12 @@ use Skyline\Render\Context\DefaultRenderContext;
         </tbody>
     </table>
 </div>
+<script type="text/javascript">
+    $(()=>{
+
+        Skyline.API.get("lager-list?order=asc")
+            .success(data=>{
+                console.log(data);
+            })
+    })
+</script>

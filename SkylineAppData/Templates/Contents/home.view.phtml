@@ -20,17 +20,159 @@ use Skyline\Render\Context\DefaultRenderContext;
     #tbl-material .mat-tools {
         text-align: right;
     }
+
+           body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .btn-open-popup {
+            padding: 12px 24px;
+            font-size: 18px;
+            background-color: green;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-open-popup:hover {
+            background-color: #4caf50;
+        }
+
+        .overlay-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .popup-box {
+            background: #fff;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+            width: 320px;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #444;
+            text-align: left;
+        }
+
+        .form-input {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .btn-submit,
+        .btn-close-popup {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .btn-submit {
+            background-color: green;
+            color: #fff;
+        }
+
+        .btn-close-popup {
+            margin-top: 12px;
+            background-color: #e74c3c;
+            color: #fff;
+        }
+
+        .btn-submit:hover,
+        .btn-close-popup:hover {
+            background-color: #4caf50;
+        }
+
+        /* Keyframes for fadeInUp animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animation for popup */
+        .overlay-container.show {
+            display: flex;
+            opacity: 1;
+        }
 </style>
 <script type="application/javascript">
-    // Du kannst hier
+    let global_mat_edit_id = 0;
     const SETUP = {};
 
     function click_btn(sender, material_id) {
-        if($(sender).hasClass("mat-delete")) {
-            alert("Delete Material "+material_id);
-        } else {
-            alert("Edit Material "+material_id);
+        Skyline.API.get("material-fetch?material_id="+encodeURI(material_id*1))
+            .success((data) => {
+                console.log(data)
+
+                if($(sender).hasClass("mat-buchen")) {
+                    let number = parseInt(prompt("buchen Material "+material_id, "1"));
+                    console.log("buchen", number)
+                    if (number != null && Number.isInteger(number))
+                {
+                    console.log("buchen good", number)
+                }
+                } 
+                else if ($(sender).hasClass("mat-delete")) {
+                    Skyline.API.get("material-delete?material_id=" + material_id)
+                    .success( (data) => {
+                        // Daten bereits als JSON erhalten
+                        console.log(data)
+                    } )
+                    table_update(false)
+                }
+                else {
+                    openPopupEdit(sender, material_id)
+                }
+            })
         }
+    
+    function on_add_btn() {
+        togglePopup()
+        // table_update(false)
     }
 
     function insert_template(data) {
@@ -53,23 +195,173 @@ use Skyline\Render\Context\DefaultRenderContext;
         }
     }
 
-    $(()=>{
-        const tpl= $("#tbl-material tbody .template");
-        SETUP.tpl = tpl.html();
-        tpl.remove()
+    function table_update(first_time){
+        if (first_time) {
 
-        setTimeout(()=>{
-            insert_template({
-                'id': 22,
-                'name': "Mutter M4",
-                "info": "Das ist ein Test",
-                "lager": "Lager 35",
-                "anzahl": 56
-            })
-        }, 2000)
+            const tpl= $("#tbl-material tbody .template");
+            SETUP.tpl = tpl.html();
+            tpl.remove()
+        }
+        else {
+            $("#tbl-material tbody").empty();
+        }
+
+        Skyline.API.get("material-list?from=0&count=25")
+            .success((data)=>{
+                console.log(data)
+                for(let mat_id of data.list) {                    
+                    Skyline.API.get("material-fetch?material_id=" + mat_id)
+                    .success((mat)=>{
+                        let lagers = "";
+                        let bestand = 0;
+                        if (mat.material.lager)
+                        {
+
+                        for(let mat_lagers of mat.material.lager) {      
+                            lagers += mat_lagers.name+"\n";
+                            bestand += mat_lagers.bestand*1; 
+                        };
+                        }
+
+                        insert_template({
+                            'id': mat.material.id,
+                            'name': mat.material.name,
+                            "info": mat.material.description,
+                            "lager": lagers,
+                            "anzahl": bestand
+                        })
+                    })
+                    .error( (e) => {
+                    // Eventuelle Fehler behandeln
+                    console.error(e.message)
+                    } )
+                };
+            })       
+            .error( (e) => {
+                // Eventuelle Fehler behandeln
+                console.error(e.message)
+            } )
+    }
+
+    $(()=>{
+        // Initially fill table with first 25 materials
+        table_update(true)
+
+        // install handler for add mat submit form
+        document.getElementById('material_add_form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const data = new FormData(this);
+        Skyline.API.post("material-add", data)
+        .success( (cb_data) => {
+                // Daten bereits als JSON erhalten
+                console.log(data)
+                table_update(false);
+                             
+            } )
+            .error( (e) => {
+                // Eventuelle Fehler behandeln
+                console.error(e.message)
+            } )
+        });
+        
+        // handler for material change
+        document.getElementById('material_edit_form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const data = new FormData(this);
+        data.append("material_id", global_mat_edit_id*1);
+        console.log(data)
+        Skyline.API.post("material-change", data)
+        .success( (cb_data) => {
+                // Daten bereits als JSON erhalten
+                console.log(data)
+                table_update(false);
+                             
+            } )
+            .error( (e) => {
+                // Eventuelle Fehler behandeln
+                console.error(e.message)
+            } )
+        });
     })
+
+    function openPopupEdit(sender, id) {
+        const overlay = document.getElementById('popupOverlayEdit');
+        // Try to fill form with data from the table row if sender is a button in a row
+       
+        // const row = sender.closest('tr');
+        const row = sender;
+        // Get values from the row's cells
+        if (sender && sender.closest && sender.closest('tr')) {
+        const row = sender.closest('tr');
+        document.getElementById('edit_mat_name').value = row.querySelector('.mat-name')?.textContent.trim() || '';
+        document.getElementById('edit_mat_description').value = row.querySelector('.mat-info')?.textContent.trim() || '';
+        document.querySelector('input[name="lager"]').value = row.querySelector('.mat-lager')?.textContent.trim() || '';
+        document.getElementById('edit_mat_bestand').value = row.querySelector('.mat-anzahl')?.textContent.trim() || '';
+        }
+        overlay.classList.toggle('show');
+        global_mat_edit_id = id;
+    }
+
+    function togglePopupEdit() {
+        const overlay = document.getElementById('popupOverlayEdit');
+        overlay.classList.toggle('show');
+    }
+
+    function togglePopup() {
+        const overlay = document.getElementById('popupOverlay');
+        overlay.classList.toggle('show');
+    }
+    
 </script>
+
+<div id="popupOverlay" class="overlay-container">
+    <div class="popup-box">
+        <h2>Neues Material</h2>
+        <form class="form-container" id="material_add_form">
+            <label class="form-label" for="new_mat_name">Name:</label>
+            <input class="form-input" type="text" placeholder="Bunsenbrenner" id="new_mat_name" name="name" required>
+
+            <label class="form-label" for="new_mat_description">Beschreibung:</label>
+            <input class="form-input" type="text" placeholder="Brennt Bunsen, sehr heiss" id="new_mat_description" name="description" required>
+
+            <label class="form-label" type="text" for="new_mat_lager">Lager</label> 
+            <input class="form-input" type="text" placeholder="Lager 5" name="lager" required></input>
+            
+            <label class="form-label" type="number" for="new_mat_bestand">Bestand</label> 
+            <input class="form-input" type="number" min="1" placeholder=1 name="bestand" id="new_mat_bestand" required></input>
+
+            <button class="btn-submit" type="submit">Submit</button>
+        </form>
+
+        <button class="btn-close-popup" onclick="togglePopup()">Close</button>
+    </div>
+</div>
+
+<div id="popupOverlayEdit" class="overlay-container">
+    <div class="popup-box">
+        <h2>Material Ändern</h2>
+        <form class="form-container" id="material_edit_form">
+            <label class="form-label" for="edit_mat_name">Name:</label>
+            <input class="form-input" type="text" placeholder="Bunsenbrenner" id="edit_mat_name" name="name" required>
+
+            <label class="form-label" for="edit_mat_description">Beschreibung:</label>
+            <input class="form-input" type="text" placeholder="Brennt Bunsen, sehr heiss" id="edit_mat_description" name="description" required>
+
+            <label class="form-label" type="text" for="edit_mat_lager">Lager</label> 
+            <input class="form-input" type="text" placeholder="Lager 5" name="lager" required></input>
+            
+            <label class="form-label" type="number" for="edit_mat_bestand">Bestand</label> 
+            <input class="form-input" type="number" min="0" placeholder=1 name="bestand" id="edit_mat_bestand" required></input>
+
+            <button class="btn-submit" type="submit">Submit</button>
+        </form>
+
+        <button class="btn-close-popup" onclick="togglePopupEdit()">Close</button>
+    </div>
+</div>
+
 <div class="content">
+    
 	<h1>Material</h1>
 
     <table class="table table-sm table-striped table-hover" id="tbl-material">
@@ -89,12 +381,13 @@ use Skyline\Render\Context\DefaultRenderContext;
             <td class="mat-lager">Lager 13</td>
             <td class="mat-anzahl">38</td>
             <td class="mat-tools">
-                <button class="mat-delete btn btn-sm btn-outline-danger p-0 px-2">Löschen</button>
+                <button class="mat-buchen btn btn-sm btn-outline-danger p-0 px-2">Buchen</button>
+                <button class="mat-delete btn btn-sm btn-outline-danger p-0 px-2">löschen</button>
                 <button class="mat-edit btn btn-sm btn-outline-primary p-0 px-2">Ändern</button>
             </td>
         </tr>
         </tbody>
-        <tfoot >
+        <!-- <tfoot >
         <tr style="background-color: #f3f4ee">
             <td colspan="100">
                 <div class="row align-items-center border-top pt-1">
@@ -117,8 +410,8 @@ use Skyline\Render\Context\DefaultRenderContext;
                     <div class="col-auto">
                         <div class="input-group input-group-sm mb-3">
                             <select class="form-select page-count">
-                                <option selected>10</option>
-                                <option>25</option>
+                                <option>10</option>
+                                <option selected>25</option>
                                 <option>50</option>
                                 <option>100</option>
                                 <option>250</option>
@@ -136,6 +429,7 @@ use Skyline\Render\Context\DefaultRenderContext;
                 </div>
             </td>
         </tr>
-        </tfoot>
+        </tfoot> -->
     </table>
+    <button class="mat-add btn btn-sm btn-outline-primary p-0 px-2" onclick="on_add_btn()">Hinzufügen</button>
 </div>

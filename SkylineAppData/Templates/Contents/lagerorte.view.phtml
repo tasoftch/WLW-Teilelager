@@ -84,6 +84,7 @@ use Skyline\Render\Context\DefaultRenderContext;
                     .error(err => console.error(err));
             }
         } else if(action === 'edit') {
+            $("#modal-title").text("Lagerort Bearbeiten")
             $("#modal-edit").modal("show");
 
             const $lname = $("#lname").val( data.name );
@@ -97,6 +98,7 @@ use Skyline\Render\Context\DefaultRenderContext;
     })
 
     function add_new_lager() {
+        $("#modal-title").text("Neuer Lagerort erstellen")
         $("#modal-edit").modal("show");
         const $lname = $("#lname").val( "" );
         $("#lager_id").val( 0 )
@@ -140,7 +142,7 @@ use Skyline\Render\Context\DefaultRenderContext;
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5">Lagerort Bearbeiten</h1>
+                <h1 class="modal-title fs-5" id="modal-title">Lagerort Bearbeiten</h1>
                 <button type="button" class="btn-close" onclick="$('#modal-edit').modal('hide')" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -149,7 +151,7 @@ use Skyline\Render\Context\DefaultRenderContext;
                     <div class="mb-3">
                         <label for="lname" class="form-label">Name</label>
                         <input type="text" placeholder="Lager name" name="name" class="form-control" id="lname" aria-describedby="lname-help">
-                        <div id="lname-help" class="form-text">We'll never share your email with anyone else.</div>
+                        <div id="lname-help" class="form-text">Der Lagername</div>
                     </div>
                     <div class="mb-3">
                         <label for="ldesc" class="form-label">Beschreibung</label>

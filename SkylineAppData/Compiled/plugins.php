@@ -1,11 +1,11 @@
 <?php
 /**
  *  == TASoft Config Compiler ==
- *  Target: TASoft\Config\Compiler\Target\FileTarget (/Users/thomas/Webseiten/WLW-Teilelager/SkylineAppData//Compiled/plugins.php)
+ *  Target: TASoft\Config\Compiler\Target\FileTarget (/Users/thomas/Library/CloudStorage/OneDrive-Persönlich/TASoft Sources/WLW-Teilelager/SkylineAppData//Compiled/plugins.php)
  *  Compiled from:
- *	1.	/Users/thomas/Webseiten/WLW-Teilelager/vendor/skyline/core-application/application.plugins.php
- *	2.	/Users/thomas/Webseiten/WLW-Teilelager/vendor/skyline/direct-components/direct-components.plugins.php
- *	3.	/Users/thomas/Webseiten/WLW-Teilelager/SkylineAppData/Config/plugins.php
+ *	1.	/Users/thomas/Library/CloudStorage/OneDrive-Persönlich/TASoft Sources/WLW-Teilelager/vendor/skyline/core-application/application.plugins.php
+ *	2.	/Users/thomas/Library/CloudStorage/OneDrive-Persönlich/TASoft Sources/WLW-Teilelager/vendor/skyline/direct-components/direct-components.plugins.php
+ *	3.	/Users/thomas/Library/CloudStorage/OneDrive-Persönlich/TASoft Sources/WLW-Teilelager/SkylineAppData/Config/plugins.php
  */
 
 return array (

@@ -84,13 +84,14 @@ class Tabelle extends Emitter {
 
     insertDataRow(id, data) {
         const $row = $("<tr data-ref='"+id+"'></tr>").html(this.template);
+        const self = this;
 
         $row.find("td[data-ref]").each(function() {
             const attr_name = $(this).attr('data-ref');
-            $(this).text( data.hasOwnProperty(attr_name) ? data[attr_name] : "??" );
+            $(this).html( self.formatValue(attr_name, data) );
         })
 
-        const self = this;
+
         $row.find("button").on("click", function() {
             const action = $(this).attr("data-action");
             self.trigger("buttonclicked", {action, id, data, row:$row})
@@ -100,7 +101,34 @@ class Tabelle extends Emitter {
         this.trigger("rowinserted", {row:$row, id})
     }
 
+    formatValue(name, value) {
+        if(value.hasOwnProperty(name))
+            return value[name];
+        return "??";
+    }
+
     clearData() {
         this.container.html("");
     }
 }
+
+
+class OrganisierteTabelle extends Tabelle {
+    constructor(id) {
+        super(id);
+
+        this.mat_pos = this.el.find("tfoot .total-marker");
+        this.mat_page = this.el.find("input.page-counter");
+    }
+
+    parsePageLocationResponse(response) {
+        const to = Math.min(response.from + response.count, response.total);
+        this.mat_pos.text(`${response.from+1} - ${to} / ${response.total}`);
+
+        const page = Math.floor(response.from / response.count) + 1;
+        const totalPages = Math.ceil(response.total / response.count);
+
+        this.mat_page.attr("placeholder", `${page} / ${totalPages}`)
+    }
+}
+

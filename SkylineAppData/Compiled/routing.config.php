@@ -38,6 +38,16 @@ return array (
       'controller' => 'Application\\Controller\\MaterialAPIActionController',
       'method' => 'fetchMaterialAction',
     ),
+    '/api/v1/material-keywords-list' => 
+    array (
+      'controller' => 'Application\\Controller\\MaterialAPIActionController',
+      'method' => 'keyWordsListAction',
+    ),
+    '/api/v1/material-keyword-clear' => 
+    array (
+      'controller' => 'Application\\Controller\\MaterialAPIActionController',
+      'method' => 'clearKeywordsAction',
+    ),
     '/api/v1/material-keyword-add' => 
     array (
       'controller' => 'Application\\Controller\\MaterialAPIActionController',

@@ -6,7 +6,7 @@
 .table tbody tr td.info {
     font-size: 80%;
     color: gray;
-    vertical-align: middle;
+    vertical-align: text-top;
 }
 
 .table tbody tr td.tools {
@@ -37,4 +37,8 @@
 
 .table thead tr th.sortable.sort-desc::after {
     content: "▼";
+}
+
+.table tfoot .page-move {
+    cursor: pointer;
 }

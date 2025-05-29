@@ -179,7 +179,27 @@ GROUP BY LAGER.id", [$material_id]) as $record) {
 	}
 
 	/**
-	 * @route /api/v1/material-keyword-clear
+	 * @route literal /api/v1/material-keywords-list
+	 */
+	public function keyWordsListAction() {
+		/** @var SQLite $PDO */
+		$PDO = $this->PDO;
+
+		$material_id = $_GET["material_id"] ?? 0;
+		$MAT = $PDO->selectOne("SELECT * FROM MATERIAL WHERE id = ?", [$material_id]);
+		if(!$MAT)
+			throw new \RuntimeException("No material found", 404);
+
+		$model = $this->getModel();
+		$keys = [];
+		foreach($PDO->select("SELECT DISTINCT value FROM KEYWORD WHERE material_id = ?", [$material_id]) as $rec) {
+			$keys[] = $rec['value'];
+		}
+		$model["keywords"] = $keys;
+	}
+
+	/**
+	 * @route literal /api/v1/material-keyword-clear
 	 */
 	public function clearKeywordsAction() {
 		/** @var SQLite $PDO */
@@ -193,6 +213,7 @@ GROUP BY LAGER.id", [$material_id]) as $record) {
 		$PDO->inject("DELETE FROM KEYWORD WHERE material_id = ?")->send([
 			$material_id
 		]);
+		$this->getModel();
 	}
 
 
@@ -217,6 +238,7 @@ GROUP BY LAGER.id", [$material_id]) as $record) {
 		} else {
 			throw new \RuntimeException("No keyword transmitted", 404);
 		}
+		$this->getModel();
 	}
 
 	/**
@@ -230,6 +252,8 @@ GROUP BY LAGER.id", [$material_id]) as $record) {
 		$MAT = $PDO->selectOne("SELECT * FROM MATERIAL WHERE id = ?", [$material_id]);
 		if(!$MAT)
 			throw new \RuntimeException("No material found", 404);
+
+		$this->getModel();
 
 		$PDO->inject("UPDATE MATERIAL SET name=?, description=? WHERE id = {$MAT['id']}")->send([
 			$_POST["name"] ?? NULL,
@@ -248,6 +272,8 @@ GROUP BY LAGER.id", [$material_id]) as $record) {
 		$PDO->inject("DELETE FROM KEYWORD WHERE material_id = ?")->send([$material_id]);
 		$PDO->inject("DELETE FROM MATERIAL WHERE id = ?")->send([$material_id]);
 		$PDO->inject("DELETE FROM BESTAND WHERE material = ?")->send([$material_id]);
+
+		$this->getModel();
 	}
 
 	/**

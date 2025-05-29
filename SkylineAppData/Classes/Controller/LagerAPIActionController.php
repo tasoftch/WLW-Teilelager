@@ -55,11 +55,13 @@ class LagerAPIActionController extends AbstractAPIActionController
 				$desc = isset($_GET['desc']) ? "DESC" : "";
 				break;
 			default:
-				$order = "name";
+				$order = "";
 		}
 
 		$model['lager'] = iterator_to_array(
-			$PDO->select("SELECT * FROM LAGER ORDER BY $order $desc")
+			$order ?
+			$PDO->select("SELECT * FROM LAGER ORDER BY $order $desc") :
+			$PDO->select("SELECT * FROM LAGER")
 		);
 	}
 

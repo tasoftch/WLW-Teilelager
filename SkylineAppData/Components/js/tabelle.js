@@ -43,7 +43,8 @@ class Tabelle extends Emitter {
         super({
             structureloaded:[],
             rowinserted:[],
-            buttonclicked: []
+            buttonclicked: [],
+            sortchanged:[]
         })
 
         this.id = id;
@@ -54,6 +55,30 @@ class Tabelle extends Emitter {
         $tpl.remove();
 
         this.container = this.el.find("tbody");
+        const self = this;
+
+        this.el.find("thead tr th.sortable").on("click", function() {
+            const $hdr = $(this);
+
+            if($hdr.hasClass("sort-desc")) {
+                $hdr.removeClass("sort-desc")
+            } else if($hdr.hasClass("sort-asc")) {
+                $hdr.removeClass("sort-asc").addClass("sort-desc");
+            } else {
+                $hdr.addClass("sort-asc");
+            }
+
+            const sorters = {};
+            self.el.find("thead tr th.sortable").each(function() {
+                if($(this).hasClass("sort-asc"))
+                    sorters[ $(this).attr("data-ref") ] = true;
+                else if($(this).hasClass("sort-desc"))
+                    sorters[ $(this).attr("data-ref") ] = false;
+            })
+
+            self.trigger('sortchanged', sorters)
+        })
+
         this.trigger('structureloaded');
     }
 

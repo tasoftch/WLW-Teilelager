@@ -42,10 +42,12 @@ use Skyline\Render\Context\DefaultRenderContext;
 <script type="text/javascript">
     const TABELLE = new Tabelle('tbl-lagerorte');
 
-    const my_table_content_loader = () => {
-        Skyline.API.get("lager-list?order=name")
+    const my_table_content_loader = (order) => {
+        Skyline.API.get("lager-list?"+order)
             .success(data=>{
                 if(data.hasOwnProperty("lager")) {
+                    TABELLE.clearData();
+
                     data.lager.forEach(lg => {
                         TABELLE.insertDataRow(lg.id, lg);
                     })
@@ -58,6 +60,18 @@ use Skyline\Render\Context\DefaultRenderContext;
         my_table_content_loader();
     })
 
+    TABELLE.on("sortchanged", (sorters) => {
+        if(sorters.hasOwnProperty("name")) {
+            if(sorters.name) {
+                my_table_content_loader('order=name')
+            } else {
+                my_table_content_loader('order=name&desc')
+            }
+        } else {
+            my_table_content_loader()
+        }
+    })
+
     TABELLE.on("buttonclicked", (params) => {
         const {action, id, data} = params;
 
@@ -65,7 +79,6 @@ use Skyline\Render\Context\DefaultRenderContext;
             if(confirm("Willst du den Lagerort «"+data.name+"» wirklich löschen?")) {
                 Skyline.API.get("lager-delete?lager_id="+id)
                     .success(()=>{
-                        TABELLE.clearData();
                         my_table_content_loader();
                     })
                     .error(err => console.error(err));
@@ -102,7 +115,6 @@ use Skyline\Render\Context\DefaultRenderContext;
         if(lager_id > 0) {
             Skyline.API.post("lager-change?lager_id="+lager_id, fd)
                 .success(d => {
-                    TABELLE.clearData();
                     my_table_content_loader();
                 })
                 .error(err => console.error(err))
@@ -112,7 +124,6 @@ use Skyline\Render\Context\DefaultRenderContext;
         } else {
             Skyline.API.post("lager-add", fd)
                 .success(d => {
-                    TABELLE.clearData();
                     my_table_content_loader();
                 })
                 .error(err => console.error(err))

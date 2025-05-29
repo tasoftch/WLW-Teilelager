@@ -3,6 +3,7 @@
 namespace Application\Controller;
 
 use Skyline\API\Controller\AbstractAPIActionController;
+use Skyline\API\Render\JSONRender;
 use Skyline\PDO\SQLite;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -26,6 +27,17 @@ class LagerAPIActionController extends AbstractAPIActionController
         return true;
     }
 
+	protected function getDefaultRenderName(): ?string
+	{
+		// Sollte es dennoch zu Fehlern kommen, soll immer in JSON geantwortet werden.
+		return JSONRender::RENDER_NAME;
+	}
+
+	protected function enableCsrfCheck(Request $request): bool
+	{
+		return false;
+	}
+
 	/**
 	 * @route literal /api/v1/lager-list
 	 */
@@ -43,7 +55,7 @@ class LagerAPIActionController extends AbstractAPIActionController
 				$desc = isset($_GET['desc']) ? "DESC" : "";
 				break;
 			default:
-				$order = "";
+				$order = "name";
 		}
 
 		$model['lager'] = iterator_to_array(
@@ -79,6 +91,8 @@ class LagerAPIActionController extends AbstractAPIActionController
 		if(!$MAT)
 			throw new \RuntimeException("No lager found", 404);
 
+		$this->getModel();
+
 		$PDO->inject("UPDATE LAGER SET name=?, description=? WHERE id = {$MAT['id']}")->send([
 			$_POST["name"] ?? NULL,
 			$_POST["description"] ?? NULL
@@ -92,6 +106,7 @@ class LagerAPIActionController extends AbstractAPIActionController
 	public function deleteLagerAction() {
 		/** @var SQLite $PDO */
 		$PDO = $this->PDO;
+		$this->getModel();
 
 		$lager_id = $_GET["lager_id"] ?? 0;
 		$PDO->inject("DELETE FROM LAGER WHERE id = ?")->send([$lager_id]);

@@ -16,10 +16,11 @@
         <title>Bestand</title>
         <action type="rel" regex="%^/?bestand%i">/bestand</action>
     </item>
-    -->
+
 
     <item id="m1">
         <title>API Beispiel</title>
         <action type="rel" regex="%^/?test-api%i">/test-api</action>
     </item>
+     -->
 </navigation>

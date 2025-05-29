@@ -10,18 +10,8 @@ use Skyline\Render\Context\DefaultRenderContext;
  */
 
 ?>
-
-<style>
-    #tbl-lagerorte tr td.info {
-        font-size: 80%;
-        color: gray;
-        vertical-align: middle;
-    }
-
-    #tbl-lagerorte .mat-tools {
-        text-align: right;
-    }
-</style>
+<link href="/Public/css/tabelle.css" rel="stylesheet" media="all">
+<script src="/Public/js/tabelle.js" type="application/javascript"></script>
 
 <div class="content">
 	<h1>Lagerorte</h1>
@@ -29,23 +19,136 @@ use Skyline\Render\Context\DefaultRenderContext;
     <table class="table table-sm table-striped table-hover" id="tbl-lagerorte">
         <thead>
         <tr>
-            <th>Lagerort</th>
+            <th data-ref="name" class="sortable">Lager</th>
+            <th data-ref="description">Bemerkung</th>
             <th> </th>
         </tr>
         </thead>
         <tbody>
         <tr class="template">
-            <td class="mat-name">Kellerverlies 5A</td>
+            <td data-ref="name">Lager</td>
+            <td data-ref="description" class="info">Wo auch immer</td>
+            <td class="tools">
+                <button data-action="delete" class="mat-delete btn btn-sm btn-outline-danger p-0 px-2">löschen</button>
+                <button data-action="edit" class="mat-edit btn btn-sm btn-outline-primary p-0 px-2">Ändern</button>
+            </td>
         </tr>
         </tbody>
     </table>
+    <hr>
+    <button onclick="add_new_lager()" class="mat-edit btn btn-sm btn-outline-success p-0 px-2">Neuer Lagerort hinzufügen</button>
 </div>
-<script type="text/javascript">
-    $(()=>{
 
-        Skyline.API.get("lager-list?order=asc")
+<script type="text/javascript">
+    const TABELLE = new Tabelle('tbl-lagerorte');
+
+    const my_table_content_loader = () => {
+        Skyline.API.get("lager-list?order=name")
             .success(data=>{
-                console.log(data);
+                if(data.hasOwnProperty("lager")) {
+                    data.lager.forEach(lg => {
+                        TABELLE.insertDataRow(lg.id, lg);
+                    })
+                }
             })
+    }
+
+
+    $(()=>{
+        my_table_content_loader();
     })
+
+    TABELLE.on("buttonclicked", (params) => {
+        const {action, id, data} = params;
+
+        if(action === 'delete') {
+            if(confirm("Willst du den Lagerort «"+data.name+"» wirklich löschen?")) {
+                Skyline.API.get("lager-delete?lager_id="+id)
+                    .success(()=>{
+                        TABELLE.clearData();
+                        my_table_content_loader();
+                    })
+                    .error(err => console.error(err));
+            }
+        } else if(action === 'edit') {
+            $("#modal-edit").modal("show");
+
+            const $lname = $("#lname").val( data.name );
+            $("#lager_id").val( id )
+            $("#ldesc").val( data.description );
+
+            window.setTimeout(()=> {
+                $lname.focus();
+            }, 500 );
+        }
+    })
+
+    function add_new_lager() {
+        $("#modal-edit").modal("show");
+        const $lname = $("#lname").val( "" );
+        $("#lager_id").val( 0 )
+        $("#ldesc").val( "" );
+
+        window.setTimeout(()=> {
+            $lname.focus();
+        }, 500 );
+    }
+
+    function send_change_lager(frm) {
+        const fd = new FormData(frm);
+
+        const lager_id = frm['lager_id'].value;
+
+        if(lager_id > 0) {
+            Skyline.API.post("lager-change?lager_id="+lager_id, fd)
+                .success(d => {
+                    TABELLE.clearData();
+                    my_table_content_loader();
+                })
+                .error(err => console.error(err))
+                .done(()=>{
+                    $("#modal-edit").modal("hide");
+                })
+        } else {
+            Skyline.API.post("lager-add", fd)
+                .success(d => {
+                    TABELLE.clearData();
+                    my_table_content_loader();
+                })
+                .error(err => console.error(err))
+                .done(()=>{
+                    $("#modal-edit").modal("hide");
+                })
+        }
+
+        return false;
+    }
 </script>
+
+<div class="modal fade" id="modal-edit" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Lagerort Bearbeiten</h1>
+                <button type="button" class="btn-close" onclick="$('#modal-edit').modal('hide')" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form onsubmit="return send_change_lager(this)" id="frm">
+                    <input type="hidden" id="lager_id" name="lager_id" value="0">
+                    <div class="mb-3">
+                        <label for="lname" class="form-label">Name</label>
+                        <input type="text" placeholder="Lager name" name="name" class="form-control" id="lname" aria-describedby="lname-help">
+                        <div id="lname-help" class="form-text">We'll never share your email with anyone else.</div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ldesc" class="form-label">Beschreibung</label>
+                        <textarea placeholder="Eine möglichst gute Beschreibung, damit du die Teile nie wieder findest." name="description" class="form-control" id="ldesc" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary" onclick="$('#frm').submit()">Speichern</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -4,6 +4,7 @@ namespace Application\Controller;
 
 use DateTime;
 use Skyline\API\Controller\AbstractAPIActionController;
+use Skyline\API\Render\JSONRender;
 use Skyline\PDO\SQLite;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -27,6 +28,18 @@ class BestandAPIActionController extends AbstractAPIActionController
         return true;
     }
 
+	protected function getDefaultRenderName(): ?string
+	{
+		// Sollte es dennoch zu Fehlern kommen, soll immer in JSON geantwortet werden.
+		return JSONRender::RENDER_NAME;
+	}
+
+	protected function enableCsrfCheck(Request $request): bool
+	{
+		// Damit Skyline CMS schlank bleibt, machen wir keine csrf Prüfungen.
+		return false;
+	}
+
 	/**
 	 * @route literal /api/v1/bestand-buchen
 	 */
@@ -47,11 +60,12 @@ class BestandAPIActionController extends AbstractAPIActionController
 		// Kann positiv (einbuchen) oder negativ (ausbuchen) sein.
 		$amount = $_POST['amount'] ?? 0;
 		$date = (new Datetime($_POST["date"] ?? 'now'))->format("Y-m-d G:i:s");
+		$this->getModel();
 
 		if($amount) {
 			$PDO->inject("INSERT INTO BESTAND (material, lager, date, amount) VALUES ($material_id, $lager_id, ?, ?)")->send([
-				$amount,
-				$date
+				$date,
+				$amount
 			]);
 		} else
 			throw new \RuntimeException("No amount transmitted", 400);

@@ -7,6 +7,7 @@ use Skyline\Render\Context\DefaultRenderContext;
  * @require Application
  *
  * @var DefaultRenderContext $this
+ * @var Generator $LAGERORTE
  */
 
 ?>
@@ -175,6 +176,13 @@ use Skyline\Render\Context\DefaultRenderContext;
             window.setTimeout(()=> {
                 $lname.focus();
             }, 500 );
+        } else if(action === 'buchen') {
+            $("#modal-buchen").modal("show");
+            $("#bname").val( data.name );
+            $("#bmaterial_id").val( id )
+
+            $("#blager").val(0);
+            $("#bcount").val("");
         }
     })
 
@@ -234,6 +242,32 @@ use Skyline\Render\Context\DefaultRenderContext;
 
         return false;
     }
+
+    function send_material_buchen(frm) {
+        const fd = new FormData();
+
+        const count = $("#bcount").val();
+        const material_id = $("#bmaterial_id").val();
+
+        if(material_id && count > 0 || count < 0) {
+            fd.append("amount", count);
+
+            Skyline.API.post("bestand-buchen?material_id="+material_id+"&lager_id="+$("#blager").val(), fd)
+                .success(d => {
+
+                    my_table_content_loader();
+                })
+                .error(err => console.error(err))
+                .done(()=>{
+                    $("#modal-buchen").modal("hide");
+                })
+        } else {
+            alert("Bitte Materialmenge eingeben.")
+            $("#bcount").focus();
+        }
+
+        return false;
+    }
 </script>
 
 
@@ -265,6 +299,47 @@ use Skyline\Render\Context\DefaultRenderContext;
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-sm btn-primary" onclick="$('#frm').submit()">Speichern</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modal-buchen" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Material Buchen</h1>
+                <button type="button" class="btn-close" onclick="$('#modal-buchen').modal('hide')" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form onsubmit="return send_material_buchen(this)" id="frm2">
+                    <input type="hidden" id="bmaterial_id" name="material_id" value="0">
+                    <div class="mb-3">
+                        <label for="bname" class="form-label">Material</label>
+                        <input type="text" readonly class="form-control" id="bname">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="blager" class="form-label">Lagerort</label>
+                        <select class="form-select" id="blager">
+                            <?php
+                            foreach($LAGERORTE as $record) {
+                                printf("<option value=\"%d\">%s</option>", $record['id'], htmlspecialchars( $record['name'] ));
+                            }
+                            ?>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="bcount" class="form-label">Menge</label>
+                        <input type="number" placeholder="Menge an Material" class="form-control" id="bcount" aria-describedby="bcount-help">
+                        <div id="bcount-help" class="form-text">Positive Mengen buchen Material ins Lager ein, negative buchen es aus.</div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-primary" onclick="$('#frm2').submit()">Speichern</button>
             </div>
         </div>
     </div>

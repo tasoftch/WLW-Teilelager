@@ -25,6 +25,7 @@ namespace Application\Controller;
 
 
 use Skyline\Application\Controller\AbstractActionController;
+use Skyline\PDO\SQLite;
 
 class IndexController extends AbstractActionController
 {
@@ -32,6 +33,12 @@ class IndexController extends AbstractActionController
      * @route literal /
      */
     public function indexAction() {
+		/** @var SQLite $PDO */
+		$PDO = $this->PDO;
+
+		$this->renderModel([
+			'LAGERORTE' => $PDO->select("SELECT * FROM LAGER ORDER BY name")
+		]);
 
         $this->renderTemplate("main", [
             "Content" => 'home'

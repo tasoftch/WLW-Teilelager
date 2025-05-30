@@ -37,7 +37,7 @@ use Skyline\Render\Context\DefaultRenderContext;
             <td data-ref="description" class="info">DIN 912 Zylinderschrauben mit Innensechskant; ISO 4762 modifiziert [Norm zurückgezogen] 912</td>
             <td data-ref="lager">Lager 13</td>
             <td data-ref="bestand">38</td>
-            <td class="mat-tools">
+            <td class="tools">
                 <button data-action="buchen" class="mat-buchen btn btn-sm btn-outline-success p-0 px-2">Buchen</button>
                 <button data-action="delete" class="mat-delete btn btn-sm btn-outline-danger p-0 px-2">Löschen</button>
                 <button data-action="edit" class="mat-edit btn btn-sm btn-outline-primary p-0 px-2">Ändern</button>
@@ -134,19 +134,26 @@ use Skyline\Render\Context\DefaultRenderContext;
         }
     }
 
+    TABELLE.on("loaddata", ({from, count, order}) => {
+        let order_str = "";
 
-    const my_table_content_loader = () => {
-        Skyline.API.get("material-list?")
+        if(order === 1)
+            order_str = "&order=name";
+        if(order === -1)
+            order_str = "&order=name&desc";
+
+        Skyline.API.get("material-list?from="+from+"&count="+count+order_str)
             .success(data=>{
                 if(data.hasOwnProperty("list")) {
                     fetch_material(data.list)
-                    TABELLE.parsePageLocationResponse(data);
+                    TABELLE.updatePageLocation(data.from, data.count, data.total);
+                    TABELLE.updateSortDescriptors(data.order);
                 }
             })
-    }
+    })
 
     $(()=>{
-        my_table_content_loader();
+        TABELLE.reloadContents();
     })
 
     TABELLE.on("buttonclicked", (params) => {
@@ -155,7 +162,7 @@ use Skyline\Render\Context\DefaultRenderContext;
             if(confirm("Willst du das Material «"+data.name+"» wirklich löschen?")) {
                 Skyline.API.get("material-delete?material_id="+id)
                     .success(()=>{
-                        my_table_content_loader();
+                        TABELLE.reloadContents();
                     })
                     .error(err => console.error(err));
             }
@@ -215,7 +222,7 @@ use Skyline\Render\Context\DefaultRenderContext;
         if(material_id > 0) {
             Skyline.API.post("material-change?material_id="+material_id, fd)
                 .success(d => {
-                    my_table_content_loader();
+                    TABELLE.reloadContents();
                     Skyline.API.get("material-keyword-clear?material_id="+material_id)
                         .success(d => {
                             add_keywords(material_id);
@@ -232,7 +239,7 @@ use Skyline\Render\Context\DefaultRenderContext;
                     if(mat_id) {
                         add_keywords(mat_id);
                     }
-                    my_table_content_loader();
+                    TABELLE.reloadContents();
                 })
                 .error(err => console.error(err))
                 .done(()=>{
@@ -254,8 +261,7 @@ use Skyline\Render\Context\DefaultRenderContext;
 
             Skyline.API.post("bestand-buchen?material_id="+material_id+"&lager_id="+$("#blager").val(), fd)
                 .success(d => {
-
-                    my_table_content_loader();
+                    TABELLE.reloadContents();
                 })
                 .error(err => console.error(err))
                 .done(()=>{

@@ -108,15 +108,18 @@ class MaterialAPIActionController extends AbstractAPIActionController
 		$from = $_GET['from'] ?? 0;
 		$count = $_GET["count"] ?? 10;
 		$order = urldecode( $_GET["order"] ?? 'name' );
+		$model = $this->getModel();
 
 		$sql = "SELECT id FROM MATERIAL";
 		$sql .= $filter = $this->buildSQLFilter();
 
-		if($order == 'name' || $order == 'description')
+		if($order == 'name' || $order == 'description') {
 			$sql .= sprintf(" ORDER BY `%s` %s", $order, isset($_GET['desc']) ? "DESC" : '');
+			$model["order"] = [$order => !isset($_GET['desc']) ];
+		}
+
 		$sql .= " LIMIT $from, $count";
 
-		$model = $this->getModel();
 
 		$list = [];
 		foreach($PDO->select($sql) as $rec) {

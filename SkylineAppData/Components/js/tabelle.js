@@ -44,7 +44,8 @@ class Tabelle extends Emitter {
             structureloaded:[],
             rowinserted:[],
             buttonclicked: [],
-            sortchanged:[]
+            sortchanged:[],
+            loaddata:[]
         })
 
         this.id = id;
@@ -118,17 +119,102 @@ class OrganisierteTabelle extends Tabelle {
         super(id);
 
         this.mat_pos = this.el.find("tfoot .total-marker");
-        this.mat_page = this.el.find("input.page-counter");
+
+        this.current_page = 1;
+        this.total_pages_count = 0;
+        this.total_rows_count = 0;
+        this.page_count = 10;
+        this.order_command = 1;
+
+        const self = this;
+
+        this.headers = new Map();
+
+        this.el.find("thead th.sortable").each( function() {
+            const ref = $(this).data("ref");
+            self.headers.set(ref, $(this));
+        });
+
+        this.el.find("tfoot span.page-move").on('click', function() {
+            if($(this).hasClass("first")) {
+                self.gotoPage(1)
+            } else if($(this).hasClass("prev")) {
+                if(self.current_page > 1)
+                    self.gotoPage( self.current_page - 1 );
+            } else if($(this).hasClass("next")) {
+                if(self.current_page < self.total_pages_count)
+                    self.gotoPage( self.current_page + 1 );
+            } else if($(this).hasClass("last")) {
+                self.gotoPage( self.total_pages_count );
+            }
+        })
+
+        this.mat_page = this.el.find("input.page-counter").on("change", function() {
+            const page = $(this).val();
+            if(page <= self.total_pages_count)
+                self.gotoPage(page);
+            $(this).val("");
+        });
+
+        this.el.find("tfoot select.page-count").on('change', function() {
+            self.page_count = $(this).val();
+            self.gotoPage(1, true);
+        })
+
+        this.on("sortchanged", (sorters) => {
+            // Nur name eingestellt.
+            if(typeof sorters.name === 'boolean') {
+                this.order_command = sorters.name ? 1 : -1;
+            } else {
+                this.order_command = 0;
+            }
+
+            this.reloadContents();
+        })
     }
 
-    parsePageLocationResponse(response) {
-        const to = Math.min(response.from + response.count, response.total);
-        this.mat_pos.text(`${response.from+1} - ${to} / ${response.total}`);
+    reloadContents() {
+        this.gotoPage(1, true);
+    }
 
-        const page = Math.floor(response.from / response.count) + 1;
-        const totalPages = Math.ceil(response.total / response.count);
+    gotoPage(page, forced=false) {
+        if(forced || page !== this.current_page) {
+            this.current_page = page;
+            this.trigger('loaddata', {page, from: (page-1) * this.page_count, count:this.page_count, order:this.order_command })
+        }
+    }
+
+    updatePageLocation(from, page_count, total_items) {
+        const to = Math.min(from + page_count, total_items);
+        this.mat_pos.text(`${from*1 + 1} - ${to} / ${total_items}`);
+
+        const page = Math.floor(from / page_count) + 1;
+        const totalPages = Math.ceil(total_items / page_count);
 
         this.mat_page.attr("placeholder", `${page} / ${totalPages}`)
+        this.total_pages_count = totalPages;
+        this.total_rows_count = total_items * 1;
+    }
+
+    updateSortDescriptors(sortDescriptors) {
+        this.headers.forEach(hdr => hdr.removeClass("sort-asc sort-desc"));
+        this.order_command = 0;
+
+        if(typeof sortDescriptors === 'object') {
+            for(const k in sortDescriptors) {
+                if(this.headers.has(k)) {
+                    const hdr = this.headers.get(k);
+                    if(sortDescriptors[k]) {
+                        this.order_command = 1;
+                        hdr.addClass("sort-asc")
+                    }
+                    else {
+                        this.order_command = -1;
+                        hdr.addClass('sort-desc');
+                    }
+                }
+            }
+        }
     }
 }
 

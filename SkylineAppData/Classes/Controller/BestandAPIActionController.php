@@ -59,7 +59,7 @@ class BestandAPIActionController extends AbstractAPIActionController
 
 		// Kann positiv (einbuchen) oder negativ (ausbuchen) sein.
 		$amount = $_POST['amount'] ?? 0;
-		$date = (new Datetime($_POST["date"] ?? 'now'))->format("Y-m-d G:i:s");
+		$date = (new Datetime($_POST["date"] ?? 'now', new \DateTimeZone("Europe/Zurich")))->format("Y-m-d H:i:s");
 		$this->getModel();
 
 		if($amount) {

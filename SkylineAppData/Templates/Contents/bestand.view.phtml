@@ -7,9 +7,40 @@ use Skyline\Render\Context\DefaultRenderContext;
  * @require Application
  *
  * @var DefaultRenderContext $this
+ * @var Generator $BUCHUNGEN
  */
 
 ?>
 <div class="content">
-
+    <h1>Buchungen</h1>
+    <p class="lead">
+        Diese Seite zeigt serverseitig generiert alle getätigten Buchungen an. Dies ist eine Kontrolle
+        der restlichen Webseite.
+    </p>
+    <hr>
+    <table class="table table-sm table-hover table-striped" id="tbl-buchungen">
+        <thead>
+        <tr>
+            <th>Datum</th>
+            <th>Material</th>
+            <th>Lager</th>
+            <th>Gebucht</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        foreach($BUCHUNGEN as $buchung) {
+            $date = new DateTime($buchung['date']);
+            ?>
+        <tr>
+            <td><?= $date->format("d.m.Y G:i") ?></td>
+            <td><?= htmlspecialchars( $buchung['material'] ) ?></td>
+            <td><?= htmlspecialchars( $buchung['lager'] ) ?></td>
+            <td><?= $buchung['amount'] > 0 ? ("+" . $buchung['amount']) : $buchung['amount'] ?></td>
+        </tr>
+            <?php
+        }
+        ?>
+        </tbody>
+    </table>
 </div>

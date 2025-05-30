@@ -69,6 +69,12 @@ class IndexController extends AbstractActionController
 	 * @route literal /bestand
 	 */
 	public function bestandAction() {
+		/** @var SQLite $PDO */
+		$PDO = $this->PDO;
+
+		$this->renderModel([
+			'BUCHUNGEN' => $PDO->select("SELECT BESTAND.id, MATERIAL.name as material, LAGER.name as lager, amount, date FROM BESTAND JOIN MATERIAL ON material = MATERIAL.id JOIN LAGER ON lager = LAGER.id ORDER BY date DESC")
+		]);
 
 		$this->renderTemplate("main", [
 			"Content" => 'bestand'

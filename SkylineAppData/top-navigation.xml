@@ -11,11 +11,12 @@
         <title>Lagerorte</title>
         <action type="rel" regex="%^/?lagerorte%i">/lagerorte</action>
     </item>
-    <!--
     <item id="m1">
-        <title>Bestand</title>
+        <title>Buchungen</title>
         <action type="rel" regex="%^/?bestand%i">/bestand</action>
     </item>
+    <!--
+
 
 
     <item id="m1">

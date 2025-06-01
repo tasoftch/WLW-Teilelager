@@ -61,9 +61,10 @@ Die API-Files sind [hier](./SkylineAppData/Classes/Controller) (./SkylineAppData
 jeweils ein File für Material, Lager, Bestand und Error vorhanden, in welchem die jeweiligen Endpunkte abgehandelt 
 werden.
 
-Alle unten aufgeführten API's sind erreichbar unter ```/api/v1/```. Argumente werden übergeben als URL-encodete addition
-zur API, wenn kein ```POST:``` davor steht. POST Methoden werden als JSON erwartet, mit dem/den Argument(en) als Key. 
-Die Antwort besteht aus einem JSON, ausser wenn ein Fehler auftritt.
+Alle unten aufgeführten API's sind erreichbar unter ```/api/v1/```. Argumente werden übergeben als URL-encodierte 
+Addition zur API, wenn kein ```POST:``` davor steht. POST Methoden werden als JSON erwartet, mit dem/den Argument(en) 
+als Key. Die Antwort besteht aus einem JSON, ausser wenn ein Fehler auftritt. Nicht vorhandene API's werden mit einem 
+404 Error beantwortet.
 
 | Server API             | Methode | Funktion                                       | Argumente                                |
 |------------------------|---------|------------------------------------------------|------------------------------------------|

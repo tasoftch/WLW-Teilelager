@@ -17,9 +17,7 @@ dass zu einem späteren Zeitpunkt das Lager automatisiert wird, und dieses Proje
 
 Grundsätzlich fungiert der Server als Anbindung an eine SQLite-Datenbank, in welcher Teile erfasst werden. Der Umfang
 der Datenbank beinhaltet Material, Lagerorte und Bestand. Ausserdem können Keywords erfasst und dem Material zugeordnet
-werden, welche als Suchhilfe verwendet werden können. Die Keyword-Funktionalitäten sind im Client mangels Zeit nicht
-umgesetzt.
-
+werden, welche als Suchhilfe verwendet werden können. 
 
 
 Der Client stellt die Informationen der Datenbank zur Verfügung. Ausserdem kann bei ihm Material Zu- oder Abgebucht,
@@ -159,10 +157,7 @@ php -S 0.0.0.0:8080 skyline.php
 
 Damit wird ein Webserver gestartet, welcher unter ```http://localhost:8080``` dieses Projekt ausliefert.
 
-````bin
-$ cd ./my-skyline-application
-$ php -S localhost:8080 Public/skyline.php
-````
+Die Website kann danach im Browser unter der Adresse ````http://127.0.0.1:8080/```` aufgerufen werden.
 
 ## Nacharbeiten
 

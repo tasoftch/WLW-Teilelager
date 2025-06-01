@@ -13,10 +13,14 @@ einen Server in PHP zur Datenbankanbindung dar sowie einen Client, der die Infor
 Die Applikation stellt ein einfaches Buchungssystem für ein Kleinteilelager dar. Es ist angedacht,
 dass zu einem späteren Zeitpunkt das Lager automatisiert wird, und dieses Projekt soll die Datenbank-Grundlage legen.
 
+![Blockschaltbild](./doc_pictures/Blockschaltbild.png)
+
 Grundsätzlich fungiert der Server als Anbindung an eine SQLite-Datenbank, in welcher Teile erfasst werden. Der Umfang
 der Datenbank beinhaltet Material, Lagerorte und Bestand. Ausserdem können Keywords erfasst und dem Material zugeordnet
 werden, welche als Suchhilfe verwendet werden können. Die Keyword-Funktionalitäten sind im Client mangels Zeit nicht
 umgesetzt.
+
+
 
 Der Client stellt die Informationen der Datenbank zur Verfügung. Ausserdem kann bei ihm Material Zu- oder Abgebucht,
 Neues Material/Lagerorte angelegt oder auch geändert werden. Die einzelnen Teile sind in den folgenden Kapitel näher
@@ -40,7 +44,6 @@ einen Server auch in der Öffentlichkeit zu deployen. Eine Beschreibung des komp
 Frameworks würde den Rahmen dieser Projektarbeit sprengen, es sei aber erwähnt, dass nicht
 der komplette Umfang verwendet wird, sondern nur das Nötigste.
 
-Der Server stellt eine Anbindung an eine SQLite-Datenbank zur Verfügung. Grundsätzliche Einträge sind
 
 ### SQLite Datenbank
 
@@ -54,9 +57,13 @@ Zu bemerken ist, dass im Rahmen dieses Projektes die Keywords nicht verwendet we
 
 ### Server API
 
+Die API-Files sind [hier](./SkylineAppData/Classes/Controller) (./SkylineAppData/Classes/Controller) abgelegt. Es sind
+jeweils ein File für Material, Lager, Bestand und Error vorhanden, in welchem die jeweiligen Endpunkte abgehandelt 
+werden.
+
 Alle unten aufgeführten API's sind erreichbar unter ```/api/v1/```. Argumente werden übergeben als URL-encodete addition
-zur API, wenn kein POST: davor steht. POST Methoden werden als JSON erwartet, mit dem Argument als Key. Die Antwort
-besteht aus einem JSON, ausser wenn ein Fehler auftritt.
+zur API, wenn kein ```POST:``` davor steht. POST Methoden werden als JSON erwartet, mit dem/den Argument(en) als Key. 
+Die Antwort besteht aus einem JSON, ausser wenn ein Fehler auftritt.
 
 | Server API             | Methode | Funktion                                       | Argumente                                |
 |------------------------|---------|------------------------------------------------|------------------------------------------|
@@ -82,15 +89,38 @@ Beispiele für API calls:
 
 ## Client
 
-### Tabs
+im Client sind 3 Tabs implementiert:
+* Material (index, home.view.phtml): Hauptindex, stellt Tabelle mit allen Materialien zur Verfügung mit Buttons zum 
+  Ändern/Buchen und Löschen von Einträgen, sowie Einen Button zum erfassen von neuen Materialien
+* Lagerorte (lagerorte.view.phtml): Tabelle mit allen Lagerorten, diese können geändert/gelöscht/erstellt werden.
+* Buchungen (bestand.view.phtml): Zeigt Liste mit allen getätigten Buchungen.
 
-material
-lagerorte
-buchung
+Die HTML-Files sind [hier](./SkylineAppData/Templates/Contents) (./SkylineAppData/Templates/Contents) abgelegt,
+verwendete Javascriptdateien [hier](./SkylineAppData/Components/js) (./SkylineAppData/Components/js), und CSS Dateien
+[hier](./SkylineAppData/Components/css) (./SkylineAppData/Components/css).
 
-### Tabelle
+### Eingabemasken
 
-tabelle.js
+Eingabemasken, die bei Aktionen wie Materialändern, erstellen, etc aufgerufen werden, sind als Overlays ausgeführt. Dies 
+bedeutet, dass im HTML pro Maske ein div-container beschrieben ist, welcher bei Benutzung vom Javascript eingeblendet
+oder ausgeblendet wird.
+
+### Tabellen
+
+Tabellenfunktionalitäten in der Material- und Lagerorte Seite sind in der Javascript Klasse in der 
+Datei ```tabelle.js``` beschrieben und hat folgendes Klassendiagramm:
+
+![Klassendiagramm Tabelle](./doc_pictures/tabelle_class_diagramm.png)
+
+* ```Emitter``` behandelt alle callback-Registrierungen
+* ```Tabelle``` Stellt die Grundfunktionalität einer Tabelle zur Verfügung, wie alle Einträge löschen oder
+  Eintrag hinzufügen
+* ```OrganisierteTabelle``` Erweitert die Funktionalität und stellt zusätzlich Tabellen-Pages zur Verfügung, welche
+  eine zu wählende Anzahl Einträge anzeigt. Ebenso kann sie Einträge sortieren.
+
+Die Klasse wird jeweils am Anfang des Javascripts der Website instanziiert und die Callbacks registriert. Alle Aktionen
+sind reaktiv, d.h., die Tabelle wird neu geladen/geändert sobald die Aktion getriggert wird.
+
 
 ## Installation
 

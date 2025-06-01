@@ -1,0 +1,42 @@
+@startuml
+
+class Emitter {
+    - events
+    + constructor(events)
+    + on(names, handler)
+    + trigger(name, params)
+    + bind(name)
+    + exists(name)
+}
+
+class Tabelle {
+    - id
+    - el
+    - template
+    - container
+    + constructor(id)
+    + insertDataRow(id, data)
+    + formatValue(name, value)
+    + clearData()
+}
+
+class OrganisierteTabelle {
+    - mat_pos
+    - current_page
+    - total_pages_count
+    - total_rows_count
+    - page_count
+    - order_command
+    - headers
+    - mat_page
+    + constructor(id)
+    + reloadContents()
+    + gotoPage(page, forced=false)
+    + updatePageLocation(from, page_count, total_items)
+    + updateSortDescriptors(sortDescriptors)
+}
+
+Emitter <|-- Tabelle
+Tabelle <|-- OrganisierteTabelle
+
+@enduml
